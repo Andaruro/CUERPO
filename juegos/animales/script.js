@@ -1,615 +1,425 @@
-// ==========================================
-// JUEGO DE ANIMALES
-// ==========================================
-
-const animales = [
-
-    {
-        nombre: "GATO",
-        imagen: "img/gato.png"
-    },
-
-    {
-        nombre: "PERRO",
-        imagen: "img/perro.png"
-    },
-
-    {
-        nombre: "PATO",
-        imagen: "img/pato.png"
-    },
-
-    {
-        nombre: "VACA",
-        imagen: "img/vaca.png"
-    },
-
-    {
-        nombre: "PEZ",
-        imagen: "img/pez.png"
-    },
-
-    {
-        nombre: "LEON",
-        imagen: "img/leon.png"
-    },
-
-    {
-        nombre: "MONO",
-        imagen: "img/mono.png"
-    },
-
-    {
-        nombre: "RANA",
-        imagen: "img/rana.png"
-    }
-
-];
-
-
-// ==========================================
-// VOCALES
-// ==========================================
-
-const vocales = [
-    "A",
-    "E",
-    "I",
-    "O",
-    "U"
-];
-
-
-// ==========================================
-// VARIABLES
-// ==========================================
-
-let animalActual = 0;
-
-let letrasEncontradas = [];
-
-let estrellas = 0;
-
-let bloqueado = false;
-
-
-// ==========================================
-// ELEMENTOS HTML
-// ==========================================
-
-const imagenAnimal =
-    document.getElementById(
-        "imagenAnimal"
-    );
-
-const palabra =
-    document.getElementById(
-        "palabra"
-    );
-
-const teclas =
-    document.getElementById(
-        "teclas"
-    );
-
-const mensaje =
-    document.getElementById(
-        "mensaje"
-    );
-
-const estrellasElemento =
-    document.getElementById(
-        "estrellas"
-    );
-
-const progreso =
-    document.getElementById(
-        "progreso"
-    );
-
-const botonReiniciar =
-    document.getElementById(
-        "reiniciar"
-    );
-
-
-// ==========================================
-// CARGAR ANIMAL
-// ==========================================
-
-function cargarAnimal() {
-
-    const animal =
-        animales[animalActual];
-
-
-    bloqueado = false;
-
-    letrasEncontradas = [];
-
-
-    // Imagen
-
-    imagenAnimal.src =
-        animal.imagen;
-
-    imagenAnimal.alt =
-        animal.nombre;
-
-
-    // Mostrar palabra
-
-    actualizarPalabra();
-
-
-    // Crear botones
-
-    crearBotones();
-
-
-    // Limpiar mensaje
-
-    mensaje.textContent = "";
-
-    mensaje.style.color =
-        "#333";
-
-
-    // Estrellas
-
-    estrellasElemento.textContent =
-        "⭐".repeat(estrellas);
-
-
-    // Progreso
-
-    progreso.textContent =
-        `Animal ${animalActual + 1} de ${animales.length}`;
-
+* {
+    box-sizing: border-box;
 }
 
-
-// ==========================================
-// MOSTRAR PALABRA
-// ==========================================
-
-function actualizarPalabra() {
-
-    const animal =
-        animales[animalActual];
-
-
-    let resultado = "";
-
-
-    for (
-        let i = 0;
-        i < animal.nombre.length;
-        i++
-    ) {
-
-        const letra =
-            animal.nombre[i];
-
-
-        // Si es vocal y todavía
-        // no ha sido encontrada
-
-        if (
-            esVocal(letra) &&
-            !letrasEncontradas.includes(letra)
-        ) {
-
-            resultado += "_";
-
-        }
-
-        else {
-
-            resultado += letra;
-
-        }
-
-    }
-
-
-    palabra.textContent =
-        resultado;
-
-}
-
-
-// ==========================================
-// SABER SI ES VOCAL
-// ==========================================
-
-function esVocal(letra) {
-
-    return vocales.includes(
-        letra
-    );
-
-}
-
-
-// ==========================================
-// CREAR BOTONES
-// ==========================================
-
-function crearBotones() {
-
-    teclas.innerHTML = "";
-
-
-    vocales.forEach(
-        function(vocal) {
-
-            const boton =
-                document.createElement(
-                    "button"
-                );
-
-
-            boton.textContent =
-                vocal;
-
-
-            boton.id =
-                `vocal-${vocal}`;
-
-
-            boton.onclick =
-                function() {
-
-                    comprobarVocal(
-                        vocal
-                    );
-
-                };
-
-
-            teclas.appendChild(
-                boton
-            );
-
-        }
-    );
-
-}
-
-
-// ==========================================
-// TECLADO FÍSICO
-// ==========================================
-
-document.addEventListener(
-    "keydown",
-    function(event) {
-
-        if (bloqueado) {
-            return;
-        }
-
-
-        const tecla =
-            event.key.toUpperCase();
-
-
-        if (
-            vocales.includes(tecla)
-        ) {
-
-            comprobarVocal(tecla);
-
-        }
-
-    }
-);
-
-
-// ==========================================
-// COMPROBAR VOCAL
-// ==========================================
-
-function comprobarVocal(vocal) {
-
-    if (bloqueado) {
-        return;
-    }
-
-
-    const animal =
-        animales[animalActual];
-
-
-    // ¿La palabra contiene
-    // esta vocal?
-
-    if (
-        animal.nombre.includes(vocal)
-    ) {
-
-        // Evitar repetir vocal
-
-        if (
-            letrasEncontradas.includes(
-                vocal
-            )
-        ) {
-
-            return;
-
-        }
-
-
-        letrasEncontradas.push(
-            vocal
+body {
+    margin: 0;
+
+    min-height: 100vh;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background:
+        linear-gradient(
+            135deg,
+            #8ed8ff,
+            #dff8ff
         );
 
+    display: flex;
 
-        // Marcar botón
+    justify-content: center;
 
-        const boton =
-            document.getElementById(
-                `vocal-${vocal}`
-            );
+    align-items: center;
 
-
-        if (boton) {
-
-            boton.classList.add(
-                "usada"
-            );
-
-        }
+    color: #333;
+}
 
 
-        actualizarPalabra();
+/* ==========================================
+   CONTENEDOR PRINCIPAL
+   ========================================== */
+
+.contenedor {
+    width: 90%;
+
+    max-width: 850px;
+
+    background: white;
+
+    border-radius: 30px;
+
+    padding: 30px;
+
+    text-align: center;
+
+    box-shadow:
+        0 10px 30px
+        rgba(0, 0, 0, 0.15);
+
+    position: relative;
+}
 
 
-        // ¿Ya encontró todas
-        // las vocales?
+/* ==========================================
+   BOTÓN VOLVER
+   ========================================== */
 
-        if (
-            palabraCompleta()
-        ) {
+.volver {
+    position: absolute;
 
-            completarAnimal();
+    top: 20px;
 
-        }
+    left: 20px;
 
-        else {
+    text-decoration: none;
 
-            mensaje.textContent =
-                "👍 ¡Muy bien!";
+    background: #eeeeee;
 
-            mensaje.style.color =
-                "#4CAF50";
+    color: #333;
 
-        }
+    padding: 10px 18px;
 
+    border-radius: 12px;
+
+    font-size: 17px;
+
+    font-weight: bold;
+}
+
+.volver:hover {
+    background: #dddddd;
+}
+
+
+/* ==========================================
+   TÍTULO
+   ========================================== */
+
+h1 {
+    color: #1976d2;
+
+    font-size: 48px;
+
+    margin-top: 45px;
+
+    margin-bottom: 15px;
+}
+
+
+/* ==========================================
+   INSTRUCCIÓN
+   ========================================== */
+
+.instruccion {
+    font-size: 25px;
+
+    margin-bottom: 25px;
+
+    color: #555;
+}
+
+
+/* ==========================================
+   IMAGEN DEL ANIMAL
+   ========================================== */
+
+.imagen-container {
+    width: 300px;
+
+    height: 250px;
+
+    margin: 0 auto 25px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    background: #f5f5f5;
+
+    border-radius: 25px;
+
+    overflow: hidden;
+}
+
+.imagen-container img {
+    max-width: 90%;
+
+    max-height: 90%;
+
+    object-fit: contain;
+}
+
+
+/* ==========================================
+   PALABRA
+   ========================================== */
+
+.palabra {
+    font-size: 65px;
+
+    font-weight: bold;
+
+    letter-spacing: 12px;
+
+    color: #1565c0;
+
+    margin: 25px 0;
+
+    min-height: 80px;
+}
+
+
+/* ==========================================
+   AYUDA
+   ========================================== */
+
+.ayuda {
+    font-size: 24px;
+
+    background: #fff3cd;
+
+    padding: 15px 25px;
+
+    border-radius: 15px;
+
+    display: inline-block;
+
+    margin-bottom: 20px;
+}
+
+
+/* ==========================================
+   VOCALES
+   Solo son una referencia visual.
+   NO se pueden presionar.
+   ========================================== */
+
+.teclas {
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin: 10px 0 20px;
+}
+
+
+/* Vocal */
+
+.teclas button {
+    width: 75px;
+
+    height: 75px;
+
+    border: none;
+
+    border-radius: 18px;
+
+    background: #64b5f6;
+
+    color: white;
+
+    font-size: 40px;
+
+    font-weight: bold;
+
+    cursor: default;
+
+    opacity: 0.8;
+
+    pointer-events: none;
+}
+
+
+/* ==========================================
+   MENSAJE
+   ========================================== */
+
+.mensaje {
+    min-height: 55px;
+
+    font-size: 38px;
+
+    font-weight: bold;
+
+    margin-top: 15px;
+}
+
+
+/* ==========================================
+   ESTRELLAS
+   ========================================== */
+
+.estrellas {
+    font-size: 42px;
+
+    min-height: 50px;
+
+    margin: 10px;
+}
+
+
+/* ==========================================
+   PROGRESO
+   ========================================== */
+
+.progreso {
+    font-size: 22px;
+
+    color: #666;
+
+    margin-top: 15px;
+}
+
+
+/* ==========================================
+   BOTÓN REINICIAR
+   ========================================== */
+
+#reiniciar {
+    display: none;
+
+    margin-top: 25px;
+
+    padding: 18px 35px;
+
+    border: none;
+
+    background: #4caf50;
+
+    color: white;
+
+    border-radius: 18px;
+
+    font-size: 26px;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+#reiniciar:hover {
+    background: #43a047;
+
+    transform: scale(1.05);
+}
+
+
+/* ==========================================
+   ANIMACIÓN CORRECTA
+   ========================================== */
+
+.correcto {
+    animation:
+        correcto 0.5s ease;
+}
+
+@keyframes correcto {
+
+    0% {
+        transform: scale(1);
     }
 
-    else {
+    50% {
+        transform: scale(1.15);
+    }
 
-        mensaje.textContent =
-            "😊 Esa no está. ¡Intenta otra!";
-
-        mensaje.style.color =
-            "#F44336";
-
-
-        palabra.classList.add(
-            "error"
-        );
+    100% {
+        transform: scale(1);
+    }
+}
 
 
-        setTimeout(
-            function() {
+/* ==========================================
+   ANIMACIÓN ERROR
+   ========================================== */
 
-                palabra.classList.remove(
-                    "error"
-                );
+.error {
+    animation:
+        error 0.3s ease;
+}
 
-            },
-            400
-        );
+@keyframes error {
 
+    0% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-10px);
+    }
+
+    50% {
+        transform: translateX(10px);
+    }
+
+    75% {
+        transform: translateX(-10px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+
+/* ==========================================
+   CELULARES
+   ========================================== */
+
+@media (max-width: 600px) {
+
+    h1 {
+        font-size: 34px;
+
+        margin-top: 50px;
+    }
+
+    .instruccion {
+        font-size: 20px;
+    }
+
+    .imagen-container {
+        width: 240px;
+
+        height: 200px;
+    }
+
+    .palabra {
+        font-size: 45px;
+
+        letter-spacing: 7px;
+    }
+
+    .ayuda {
+        font-size: 19px;
+
+        padding: 12px 18px;
+    }
+
+    .teclas {
+        gap: 8px;
+    }
+
+    .teclas button {
+        width: 55px;
+
+        height: 55px;
+
+        font-size: 30px;
+
+        border-radius: 14px;
+    }
+
+    .mensaje {
+        font-size: 30px;
+    }
+
+    .estrellas {
+        font-size: 35px;
+    }
+
+    .progreso {
+        font-size: 19px;
     }
 
 }
-
-
-// ==========================================
-// COMPROBAR SI ESTÁ COMPLETA
-// ==========================================
-
-function palabraCompleta() {
-
-    const animal =
-        animales[animalActual];
-
-
-    for (
-        let i = 0;
-        i < animal.nombre.length;
-        i++
-    ) {
-
-        const letra =
-            animal.nombre[i];
-
-
-        if (
-            esVocal(letra) &&
-            !letrasEncontradas.includes(
-                letra
-            )
-        ) {
-
-            return false;
-
-        }
-
-    }
-
-
-    return true;
-
-}
-
-
-// ==========================================
-// COMPLETAR ANIMAL
-// ==========================================
-
-function completarAnimal() {
-
-    bloqueado = true;
-
-
-    const animal =
-        animales[animalActual];
-
-
-    palabra.textContent =
-        animal.nombre;
-
-
-    palabra.classList.add(
-        "correcto"
-    );
-
-
-    estrellas++;
-
-
-    estrellasElemento.textContent =
-        "⭐".repeat(estrellas);
-
-
-    mensaje.textContent =
-        "🎉 ¡MUY BIEN! 🎉";
-
-
-    mensaje.style.color =
-        "#4CAF50";
-
-
-    setTimeout(
-        function() {
-
-            palabra.classList.remove(
-                "correcto"
-            );
-
-
-            siguienteAnimal();
-
-        },
-        1400
-    );
-
-}
-
-
-// ==========================================
-// SIGUIENTE ANIMAL
-// ==========================================
-
-function siguienteAnimal() {
-
-    animalActual++;
-
-
-    if (
-        animalActual >=
-        animales.length
-    ) {
-
-        terminarJuego();
-
-        return;
-
-    }
-
-
-    cargarAnimal();
-
-}
-
-
-// ==========================================
-// TERMINAR JUEGO
-// ==========================================
-
-function terminarJuego() {
-
-    bloqueado = true;
-
-
-    imagenAnimal.src =
-        "img/gato.png";
-
-
-    imagenAnimal.alt =
-        "Felicitaciones";
-
-
-    palabra.textContent =
-        "¡LO LOGRASTE!";
-
-
-    mensaje.textContent =
-        "🏆 ¡Excelente trabajo! 🏆";
-
-
-    mensaje.style.color =
-        "#1976D2";
-
-
-    teclas.innerHTML =
-        "";
-
-
-    estrellasElemento.textContent =
-        "⭐".repeat(estrellas);
-
-
-    progreso.textContent =
-        `Completaste ${animales.length} animales`;
-
-
-    botonReiniciar.style.display =
-        "inline-block";
-
-}
-
-
-// ==========================================
-// REINICIAR
-// ==========================================
-
-function reiniciarJuego() {
-
-    animalActual = 0;
-
-    estrellas = 0;
-
-    letrasEncontradas = [];
-
-
-    botonReiniciar.style.display =
-        "none";
-
-
-    cargarAnimal();
-
-}
-
-
-// ==========================================
-// INICIAR
-// ==========================================
-
-cargarAnimal();
