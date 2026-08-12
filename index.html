@@ -1,293 +1,101 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Partes del cuerpo</title>
+    <title>Aprendemos Jugando</title>
 
-<style>
-
-body{
-    margin:0;
-    font-family:Arial,Helvetica,sans-serif;
-    background:linear-gradient(#9be7ff,#ffffff);
-    text-align:center;
-}
-
-h1{
-    color:#1565C0;
-    font-size:50px;
-}
-
-#imagen{
-
-    font-size:180px;
-    margin-top:15px;
-
-}
-
-#palabra{
-
-    font-size:65px;
-    font-weight:bold;
-    letter-spacing:10px;
-    margin:25px;
-
-}
-
-#opciones button{
-
-    width:120px;
-    height:120px;
-    margin:15px;
-    border:none;
-    border-radius:20px;
-    font-size:60px;
-    cursor:pointer;
-    background:#FFD54F;
-    transition:.3s;
-
-}
-
-#opciones button:hover{
-
-transform:scale(1.08);
-
-}
-
-#mensaje{
-
-font-size:45px;
-margin-top:25px;
-height:60px;
-font-weight:bold;
-
-}
-
-#estrellas{
-
-font-size:40px;
-margin-top:15px;
-
-}
-
-#reiniciar{
-
-display:none;
-padding:15px 35px;
-font-size:28px;
-border:none;
-background:#4CAF50;
-color:white;
-border-radius:15px;
-cursor:pointer;
-margin-top:20px;
-
-}
-
-</style>
-
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<h1>⭐ Completa la palabra ⭐</h1>
-
-<div id="imagen"></div>
-
-<div id="palabra"></div>
-
-<div id="opciones"></div>
-
-<div id="mensaje"></div>
-
-<div id="estrellas"></div>
+    <main class="menu">
 
-<button id="reiniciar" onclick="reiniciar()">
-Jugar otra vez
-</button>
+        <header class="encabezado">
 
-<script>
+            <div class="decoracion">⭐</div>
 
-const juegos=[
+            <h1>¡Aprendemos Jugando!</h1>
 
-{
-emoji:"✋",
-nombre:"MANOS",
-mostrar:"M _ N O S",
-correcta:"A",
-opciones:["A","E","I"]
-},
+            <p>
+                Elige una actividad para comenzar
+            </p>
 
-{
-emoji:"💪",
-nombre:"BRAZO",
-mostrar:"B R A _ O",
-correcta:"Z",
-opciones:["Z","P","S"]
-},
+            <div class="decoracion">🌈</div>
 
-{
-emoji:"👀",
-nombre:"OJOS",
-mostrar:"O J _ S",
-correcta:"O",
-opciones:["A","O","E"]
-},
+        </header>
 
-{
-emoji:"👃",
-nombre:"NARIZ",
-mostrar:"N A _ I Z",
-correcta:"R",
-opciones:["L","R","T"]
-},
 
-{
-emoji:"👄",
-nombre:"BOCA",
-mostrar:"B O _ A",
-correcta:"C",
-opciones:["G","C","P"]
-},
+        <section class="juegos">
 
-{
-emoji:"🦵",
-nombre:"PIERNA",
-mostrar:"P I E _ N A",
-correcta:"R",
-opciones:["R","L","M"]
-},
+            <!-- PARTES DEL CUERPO -->
 
-{
-emoji:"🦶",
-nombre:"PIE",
-mostrar:"P _ E",
-correcta:"I",
-opciones:["A","I","O"]
-},
+            <a
+                href="juegos/cuerpo/index.html"
+                class="juego juego-cuerpo"
+            >
 
-{
-emoji:"🙂",
-nombre:"CABEZA",
-mostrar:"C A B E _ A",
-correcta:"Z",
-opciones:["S","Z","R"]
-}
+                <div class="juego-icono">
+                    🧒
+                </div>
 
-];
+                <h2>
+                    Partes del cuerpo
+                </h2>
 
-let actual=0;
-let estrellas=0;
+                <p>
+                    Aprende las partes del cuerpo
+                    completando las palabras.
+                </p>
 
-const imagen=document.getElementById("imagen");
-const palabra=document.getElementById("palabra");
-const opciones=document.getElementById("opciones");
-const mensaje=document.getElementById("mensaje");
-const txtEstrellas=document.getElementById("estrellas");
+                <span class="boton">
+                    ¡Jugar! ▶
+                </span>
 
-function cargar(){
+            </a>
 
-mensaje.innerHTML="";
 
-let juego=juegos[actual];
+            <!-- ANIMALES -->
 
-imagen.innerHTML=juego.emoji;
+            <a
+                href="juegos/animales/index.html"
+                class="juego juego-animales"
+            >
 
-palabra.innerHTML=juego.mostrar;
+                <div class="juego-icono">
+                    🐶
+                </div>
 
-opciones.innerHTML="";
+                <h2>
+                    Los animales
+                </h2>
 
-juego.opciones.sort(()=>Math.random()-0.5);
+                <p>
+                    Observa los animales y completa
+                    sus nombres usando el teclado.
+                </p>
 
-juego.opciones.forEach(letra=>{
+                <span class="boton">
+                    ¡Jugar! ▶
+                </span>
 
-let b=document.createElement("button");
+            </a>
 
-b.innerHTML=letra;
 
-b.onclick=()=>respuesta(letra);
+        </section>
 
-opciones.appendChild(b);
 
-});
+        <footer>
 
-txtEstrellas.innerHTML="⭐ ".repeat(estrellas);
+            ⭐ ¡Diviértete aprendiendo! ⭐
 
-}
+        </footer>
 
-function respuesta(letra){
-
-if(letra==juegos[actual].correcta){
-
-mensaje.style.color="green";
-mensaje.innerHTML="🎉 ¡Muy bien!";
-
-estrellas++;
-
-setTimeout(()=>{
-
-actual++;
-
-if(actual<juegos.length){
-
-cargar();
-
-}else{
-
-fin();
-
-}
-
-},900);
-
-}else{
-
-mensaje.style.color="red";
-mensaje.innerHTML="❌ Intenta otra vez";
-
-}
-
-}
-
-function fin(){
-
-imagen.innerHTML="🏆";
-
-palabra.innerHTML="¡Excelente!";
-
-opciones.innerHTML="";
-
-mensaje.style.color="#1565C0";
-mensaje.innerHTML="Aprendiste las partes del cuerpo.";
-
-txtEstrellas.innerHTML="⭐".repeat(estrellas);
-
-document.getElementById("reiniciar").style.display="inline-block";
-
-}
-
-function reiniciar(){
-
-actual=0;
-
-estrellas=0;
-
-document.getElementById("reiniciar").style.display="none";
-
-cargar();
-
-}
-
-cargar();
-
-</script>
+    </main>
 
 </body>
+
 </html>
-
-
-         
-
-       
