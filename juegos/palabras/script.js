@@ -32,6 +32,87 @@ const palabras = [
 
 
 // ==========================================
+// IMÁGENES DE LAS PALABRAS
+// ==========================================
+//
+// Las imágenes deben estar dentro de:
+//
+// imagenes/
+//
+// Ejemplo:
+//
+// imagenes/juego.png
+// imagenes/familia.png
+// imagenes/mascota.png
+//
+// ==========================================
+
+const imagenesPalabras = {
+
+    "JUEGO":
+        "imagenes/juego.png",
+
+    "FAMILIA":
+        "imagenes/familia.png",
+
+    "MASCOTA":
+        "imagenes/mascota.png",
+
+    "CUERPO":
+        "imagenes/cuerpo.png",
+
+    "DIENTE":
+        "imagenes/diente.png",
+
+    "SILLA":
+        "imagenes/silla.png",
+
+    "MANZANA":
+        "imagenes/manzana.png",
+
+    "SOL":
+        "imagenes/sol.png",
+
+    "PLATO":
+        "imagenes/plato.png",
+
+    "TENEDOR":
+        "imagenes/tenedor.png",
+
+    "PELOTA":
+        "imagenes/pelota.png",
+
+    "GAFAS":
+        "imagenes/gafas.png",
+
+    "LIBRO":
+        "imagenes/libro.png",
+
+    "ROPA":
+        "imagenes/ropa.png",
+
+    "CARRO":
+        "imagenes/carro.png",
+
+    "PRINCESA":
+        "imagenes/princesa.png",
+
+    "COMPUTADORA":
+        "imagenes/computadora.png",
+
+    "CELULAR":
+        "imagenes/celular.png",
+
+    "JARRÓN":
+        "imagenes/jarron.png",
+
+    "TABLERO":
+        "imagenes/tablero.png"
+
+};
+
+
+// ==========================================
 // VARIABLES
 // ==========================================
 
@@ -49,6 +130,12 @@ let bloqueado = false;
 // ==========================================
 // ELEMENTOS
 // ==========================================
+
+const imagenPalabra =
+    document.getElementById(
+        "imagenPalabra"
+    );
+
 
 const letrasDesordenadas =
     document.getElementById(
@@ -116,6 +203,12 @@ const botonReiniciar =
     );
 
 
+const botonSiguiente =
+    document.getElementById(
+        "siguiente"
+    );
+
+
 // ==========================================
 // CARGAR PALABRA
 // ==========================================
@@ -133,12 +226,19 @@ function cargarPalabra() {
         palabras[palabraActual];
 
 
+    // Mostrar imagen
+
+    mostrarImagenPalabra();
+
+
+    // Mostrar letras desordenadas
+
     mostrarLetrasDesordenadas(
         palabraActualTexto
     );
 
 
-    // Crear la primera fila de letras
+    // Crear primera fila
 
     crearFilaActual();
 
@@ -159,7 +259,7 @@ function cargarPalabra() {
         `Palabra ${palabraActual + 1} de ${palabras.length}`;
 
 
-    // Ocultar menú de resultado
+    // Ocultar resultado
 
     resultado.style.display =
         "none";
@@ -172,6 +272,74 @@ function cargarPalabra() {
     botonReiniciar.style.display =
         "none";
 
+
+    botonSiguiente.style.display =
+        "inline-block";
+
+}
+
+
+// ==========================================
+// MOSTRAR IMAGEN
+// ==========================================
+
+function mostrarImagenPalabra() {
+
+    const palabraCorrecta =
+        palabras[palabraActual];
+
+
+    const rutaImagen =
+        imagenesPalabras[
+            palabraCorrecta
+        ];
+
+
+    imagenPalabra.innerHTML =
+        "";
+
+
+    if (!rutaImagen) {
+
+        return;
+
+    }
+
+
+    const imagen =
+        document.createElement(
+            "img"
+        );
+
+
+    imagen.src =
+        rutaImagen;
+
+
+    imagen.alt =
+        `Imagen de ${palabraCorrecta}`;
+
+
+    imagen.classList.add(
+        "imagen-palabra-img"
+    );
+
+
+    // Si la imagen no existe
+
+    imagen.onerror =
+        function() {
+
+            imagen.style.display =
+                "none";
+
+        };
+
+
+    imagenPalabra.appendChild(
+        imagen
+    );
+
 }
 
 
@@ -181,14 +349,15 @@ function cargarPalabra() {
 
 function mostrarLetrasDesordenadas(texto) {
 
-    letrasDesordenadas.innerHTML = "";
+    letrasDesordenadas.innerHTML =
+        "";
 
 
     const letras =
         texto.split("");
 
 
-    // Mezclar las letras
+    // Mezclar letras
 
     for (
         let i = letras.length - 1;
@@ -282,7 +451,8 @@ function crearFilaActual() {
     }
 
 
-    palabra.innerHTML = "";
+    palabra.innerHTML =
+        "";
 
 
     palabra.appendChild(
@@ -305,7 +475,9 @@ function actualizarFilaActual() {
 
 
     if (!fila) {
+
         return;
+
     }
 
 
@@ -325,7 +497,9 @@ function actualizarFilaActual() {
     );
 
 
-    // Cuando ya están todas las letras
+    // ======================================
+    // PALABRA COMPLETA
+    // ======================================
 
     if (
         letrasEscritas.length ===
@@ -335,6 +509,7 @@ function actualizarFilaActual() {
         mensaje.textContent =
             "↵ Presiona ENTER para comprobar";
 
+
         mensaje.style.color =
             "#1565c0";
 
@@ -343,6 +518,7 @@ function actualizarFilaActual() {
 
         mensaje.textContent =
             "⌨️ Escribe las letras en orden";
+
 
         mensaje.style.color =
             "#333";
@@ -361,7 +537,9 @@ document.addEventListener(
     function(event) {
 
         if (bloqueado) {
+
             return;
+
         }
 
 
@@ -379,7 +557,9 @@ document.addEventListener(
 
             event.preventDefault();
 
+
             comprobarPalabra();
+
 
             return;
 
@@ -396,7 +576,9 @@ document.addEventListener(
 
             event.preventDefault();
 
+
             borrarLetra();
+
 
             return;
 
@@ -404,7 +586,7 @@ document.addEventListener(
 
 
         // ==================================
-        // SOLO ACEPTAR LETRAS
+        // SOLO LETRAS
         // ==================================
 
         if (
@@ -433,7 +615,7 @@ function agregarLetra(letra) {
         palabras[palabraActual];
 
 
-    // No permitir más letras de las necesarias
+    // No permitir más letras
 
     if (
         letrasEscritas.length >=
@@ -443,15 +625,18 @@ function agregarLetra(letra) {
         mensaje.textContent =
             "↵ Presiona ENTER para comprobar";
 
+
         mensaje.style.color =
             "#1565c0";
+
 
         return;
 
     }
 
 
-    letrasEscritas += letra;
+    letrasEscritas +=
+        letra;
 
 
     actualizarFilaActual();
@@ -496,20 +681,23 @@ function comprobarPalabra() {
         palabras[palabraActual];
 
 
-    // ==================================
-    // NO ESTÁ COMPLETA
-    // ==================================
+    // ======================================
+    // SI FALTAN LETRAS
+    // ======================================
 
     if (
         letrasEscritas.length <
         palabraCorrecta.length
     ) {
 
+        const faltan =
+            palabraCorrecta.length -
+            letrasEscritas.length;
+
+
         mensaje.textContent =
-            `⚠️ Faltan ${
-                palabraCorrecta.length -
-                letrasEscritas.length
-            } letras`;
+            `⚠️ Faltan ${faltan} letras`;
+
 
         mensaje.style.color =
             "#F44336";
@@ -547,16 +735,14 @@ function comprobarPalabra() {
     }
 
 
-    // ==================================
-    // ENTER CUENTA COMO INTENTO
-    // ==================================
+    // ======================================
+    // ENTER = 1 INTENTO
+    // ======================================
 
     intentos++;
 
 
-    // ==================================
-    // EVALUAR LETRAS
-    // ==================================
+    // Evaluar colores
 
     evaluarIntento(
         letrasEscritas,
@@ -564,9 +750,9 @@ function comprobarPalabra() {
     );
 
 
-    // ==================================
-    // PALABRA CORRECTA
-    // ==================================
+    // ======================================
+    // CORRECTA
+    // ======================================
 
     if (
         letrasEscritas ===
@@ -575,28 +761,33 @@ function comprobarPalabra() {
 
         completarPalabra();
 
+
         return;
 
     }
 
 
-    // ==================================
-    // PALABRA INCORRECTA
-    // ==================================
+    // ======================================
+    // INCORRECTA
+    // ======================================
 
     mensaje.textContent =
         "😊 ¡Mira los colores e inténtalo otra vez!";
+
 
     mensaje.style.color =
         "#F44336";
 
 
-    // Crear una nueva fila
+    // Nueva fila
 
     crearNuevaFila();
 
 
-    letrasEscritas = "";
+    // Vaciar letras para nuevo intento
+
+    letrasEscritas =
+        "";
 
 }
 
@@ -617,7 +808,9 @@ function evaluarIntento(
 
 
     if (!fila) {
+
         return;
+
     }
 
 
@@ -628,18 +821,17 @@ function evaluarIntento(
 
 
     const letrasDisponibles =
-        palabraCorrecta
-            .split("");
+        palabraCorrecta.split("");
 
 
     const resultadoLetras =
         [];
 
 
-    // ==================================
+    // ======================================
     // PRIMERA PASADA
-    // LETRAS VERDES
-    // ==================================
+    // VERDES
+    // ======================================
 
     for (
         let i = 0;
@@ -664,10 +856,10 @@ function evaluarIntento(
     }
 
 
-    // ==================================
+    // ======================================
     // SEGUNDA PASADA
-    // AMARILLAS Y GRISES
-    // ==================================
+    // AMARILLO / GRIS
+    // ======================================
 
     for (
         let i = 0;
@@ -713,9 +905,9 @@ function evaluarIntento(
     }
 
 
-    // ==================================
+    // ======================================
     // APLICAR COLORES
-    // ==================================
+    // ======================================
 
     casillas.forEach(
         function(casilla, indice) {
@@ -751,6 +943,8 @@ function evaluarIntento(
         }
     );
 
+
+    // Esta fila ya no es editable
 
     fila.classList.remove(
         "fila-actual"
@@ -844,8 +1038,6 @@ function completarPalabra() {
         "⭐".repeat(estrellas);
 
 
-    // Mostrar menú
-
     mostrarResultado();
 
 }
@@ -881,9 +1073,9 @@ function mostrarResultado() {
         `Intentos: ${intentos}`;
 
 
-    // ==================================
+    // ======================================
     // CHECKPOINT
-    // ==================================
+    // ======================================
 
     if (
         numeroPalabra === 10
@@ -911,17 +1103,12 @@ function mostrarResultado() {
 
 function siguientePalabra() {
 
-    palabra.classList.remove(
-        "correcto"
-    );
-
-
     palabraActual++;
 
 
-    // ==================================
+    // ======================================
     // TERMINAR
-    // ==================================
+    // ======================================
 
     if (
         palabraActual >=
@@ -929,6 +1116,7 @@ function siguientePalabra() {
     ) {
 
         terminarJuego();
+
 
         return;
 
@@ -949,7 +1137,12 @@ function terminarJuego() {
     bloqueado = true;
 
 
-    letrasDesordenadas.innerHTML = "";
+    letrasDesordenadas.innerHTML =
+        "";
+
+
+    imagenPalabra.innerHTML =
+        "";
 
 
     palabra.innerHTML =
@@ -1012,9 +1205,7 @@ function terminarJuego() {
         "none";
 
 
-    document.getElementById(
-        "siguiente"
-    ).style.display =
+    botonSiguiente.style.display =
         "none";
 
 
@@ -1043,9 +1234,7 @@ function reiniciarJuego() {
         "none";
 
 
-    document.getElementById(
-        "siguiente"
-    ).style.display =
+    botonSiguiente.style.display =
         "inline-block";
 
 
