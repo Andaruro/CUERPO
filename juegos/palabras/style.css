@@ -1,0 +1,559 @@
+* {
+    box-sizing: border-box;
+}
+
+
+body {
+
+    margin: 0;
+
+    min-height: 100vh;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background:
+        linear-gradient(
+            135deg,
+            #b8e8ff,
+            #ffffff
+        );
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    color: #333;
+}
+
+
+/* ==========================================
+   CONTENEDOR
+   ========================================== */
+
+.contenedor {
+
+    width: 90%;
+
+    max-width: 850px;
+
+    background: white;
+
+    border-radius: 30px;
+
+    padding: 30px;
+
+    text-align: center;
+
+    box-shadow:
+        0 10px 30px
+        rgba(0, 0, 0, 0.15);
+
+    position: relative;
+}
+
+
+/* ==========================================
+   VOLVER
+   ========================================== */
+
+.volver {
+
+    position: absolute;
+
+    top: 20px;
+
+    left: 20px;
+
+    text-decoration: none;
+
+    background: #eeeeee;
+
+    color: #333;
+
+    padding: 10px 18px;
+
+    border-radius: 12px;
+
+    font-size: 17px;
+
+    font-weight: bold;
+}
+
+
+.volver:hover {
+
+    background: #dddddd;
+}
+
+
+/* ==========================================
+   TITULO
+   ========================================== */
+
+h1 {
+
+    color: #1565c0;
+
+    font-size: 48px;
+
+    margin-top: 45px;
+
+    margin-bottom: 15px;
+}
+
+
+/* ==========================================
+   INSTRUCCIÓN
+   ========================================== */
+
+.instruccion {
+
+    font-size: 25px;
+
+    color: #555;
+
+    margin-bottom: 30px;
+}
+
+
+/* ==========================================
+   LETRAS DESORDENADAS
+   ========================================== */
+
+.letras-desordenadas {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 15px;
+
+    margin: 25px auto;
+
+    min-height: 90px;
+}
+
+
+.letras-desordenadas span {
+
+    width: 75px;
+
+    height: 75px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    background: #64b5f6;
+
+    color: white;
+
+    border-radius: 18px;
+
+    font-size: 42px;
+
+    font-weight: bold;
+
+    box-shadow:
+        0 4px 8px
+        rgba(0, 0, 0, 0.15);
+}
+
+
+/* ==========================================
+   PALABRA
+   ========================================== */
+
+.palabra {
+
+    min-height: 90px;
+
+    font-size: 65px;
+
+    font-weight: bold;
+
+    letter-spacing: 12px;
+
+    color: #1565c0;
+
+    margin: 30px 0;
+}
+
+
+/* ==========================================
+   AYUDA
+   ========================================== */
+
+.ayuda {
+
+    display: inline-block;
+
+    font-size: 24px;
+
+    background: #fff3cd;
+
+    padding: 15px 25px;
+
+    border-radius: 15px;
+
+    margin-bottom: 20px;
+}
+
+
+/* ==========================================
+   MENSAJE
+   ========================================== */
+
+.mensaje {
+
+    min-height: 55px;
+
+    font-size: 38px;
+
+    font-weight: bold;
+
+    margin-top: 15px;
+}
+
+
+/* ==========================================
+   ESTRELLAS
+   ========================================== */
+
+.estrellas {
+
+    min-height: 50px;
+
+    font-size: 42px;
+
+    margin: 10px;
+}
+
+
+/* ==========================================
+   PROGRESO
+   ========================================== */
+
+.progreso {
+
+    font-size: 22px;
+
+    color: #666;
+
+    margin-top: 15px;
+}
+
+
+/* ==========================================
+   MENÚ DE RESULTADO
+   ========================================== */
+
+.resultado {
+
+    display: none;
+
+    margin: 25px auto 10px;
+
+    padding: 25px;
+
+    max-width: 550px;
+
+    background: #f5faff;
+
+    border: 3px solid #90caf9;
+
+    border-radius: 25px;
+
+    box-shadow:
+        0 5px 15px
+        rgba(0, 0, 0, 0.10);
+}
+
+
+.resultado-titulo {
+
+    font-size: 36px;
+
+    font-weight: bold;
+
+    color: #1565c0;
+
+    margin-bottom: 15px;
+}
+
+
+.resultado-palabra {
+
+    font-size: 32px;
+
+    font-weight: bold;
+
+    color: #333;
+
+    margin-bottom: 15px;
+}
+
+
+.resultado-intentos {
+
+    font-size: 25px;
+
+    color: #555;
+
+    margin-bottom: 15px;
+}
+
+
+/* ==========================================
+   CHECKPOINT
+   ========================================== */
+
+.checkpoint {
+
+    display: none;
+
+    background: #fff3cd;
+
+    color: #e65100;
+
+    padding: 15px;
+
+    border-radius: 15px;
+
+    font-size: 28px;
+
+    font-weight: bold;
+
+    margin-bottom: 20px;
+}
+
+
+/* ==========================================
+   BOTÓN SIGUIENTE
+   ========================================== */
+
+.boton-siguiente {
+
+    border: none;
+
+    background: #4caf50;
+
+    color: white;
+
+    padding: 15px 40px;
+
+    border-radius: 15px;
+
+    font-size: 26px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+
+.boton-siguiente:hover {
+
+    background: #43a047;
+
+    transform: scale(1.05);
+}
+
+
+/* ==========================================
+   BOTÓN REINICIAR
+   ========================================== */
+
+#reiniciar {
+
+    display: none;
+
+    margin-top: 25px;
+
+    padding: 18px 35px;
+
+    border: none;
+
+    background: #4caf50;
+
+    color: white;
+
+    border-radius: 18px;
+
+    font-size: 26px;
+
+    cursor: pointer;
+}
+
+
+#reiniciar:hover {
+
+    background: #43a047;
+
+    transform: scale(1.05);
+}
+
+
+/* ==========================================
+   ANIMACIÓN CORRECTA
+   ========================================== */
+
+.correcto {
+
+    animation:
+        correcto 0.5s ease;
+}
+
+
+@keyframes correcto {
+
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.15);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+
+/* ==========================================
+   ERROR
+   ========================================== */
+
+.error {
+
+    animation:
+        error 0.3s ease;
+}
+
+
+@keyframes error {
+
+    0% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-10px);
+    }
+
+    50% {
+        transform: translateX(10px);
+    }
+
+    75% {
+        transform: translateX(-10px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+
+/* ==========================================
+   CELULAR
+   ========================================== */
+
+@media (max-width: 600px) {
+
+    h1 {
+
+        font-size: 34px;
+
+        margin-top: 50px;
+    }
+
+
+    .instruccion {
+
+        font-size: 20px;
+    }
+
+
+    .letras-desordenadas {
+
+        gap: 8px;
+    }
+
+
+    .letras-desordenadas span {
+
+        width: 55px;
+
+        height: 55px;
+
+        font-size: 30px;
+    }
+
+
+    .palabra {
+
+        font-size: 45px;
+
+        letter-spacing: 7px;
+    }
+
+
+    .ayuda {
+
+        font-size: 19px;
+
+        padding: 12px 18px;
+    }
+
+
+    .mensaje {
+
+        font-size: 30px;
+    }
+
+
+    .estrellas {
+
+        font-size: 35px;
+    }
+
+
+    .resultado-titulo {
+
+        font-size: 28px;
+    }
+
+
+    .resultado-palabra {
+
+        font-size: 25px;
+    }
+
+
+    .resultado-intentos {
+
+        font-size: 21px;
+    }
+
+
+    .checkpoint {
+
+        font-size: 23px;
+    }
+
+}
