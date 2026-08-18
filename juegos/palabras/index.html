@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Ordena la palabra</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+    <main class="contenedor">
+
+        <a
+            href="../../index.html"
+            class="volver"
+        >
+            🏠 Menú principal
+        </a>
+
+
+        <h1>
+            🔤 ¡Ordena la palabra! 🔤
+        </h1>
+
+
+        <p class="instruccion">
+            Mira las letras y escríbelas
+            en el orden correcto.
+        </p>
+
+
+        <div
+            id="letrasDesordenadas"
+            class="letras-desordenadas"
+        ></div>
+
+
+        <div
+            id="palabra"
+            class="palabra"
+        ></div>
+
+
+        <div class="ayuda">
+            ⌨️ Usa el teclado para escribir
+        </div>
+
+
+        <div
+            id="mensaje"
+            class="mensaje"
+        ></div>
+
+
+        <div
+            id="estrellas"
+            class="estrellas"
+        ></div>
+
+
+        <div
+            id="progreso"
+            class="progreso"
+        ></div>
+
+
+        <!-- ==================================
+             MENÚ DE RESULTADO
+             ================================== -->
+
+        <div
+            id="resultado"
+            class="resultado"
+        >
+
+            <div
+                id="resultadoTitulo"
+                class="resultado-titulo"
+            ></div>
+
+
+            <div
+                id="resultadoPalabra"
+                class="resultado-palabra"
+            ></div>
+
+
+            <div
+                id="resultadoIntentos"
+                class="resultado-intentos"
+            ></div>
+
+
+            <div
+                id="checkpoint"
+                class="checkpoint"
+            ></div>
+
+
+            <button
+                id="siguiente"
+                class="boton-siguiente"
+                onclick="siguientePalabra()"
+            >
+                Siguiente ➜
+            </button>
+
+        </div>
+
+
+        <button
+            id="reiniciar"
+            onclick="reiniciarJuego()"
+        >
+            🔄 Jugar otra vez
+        </button>
+
+    </main>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
