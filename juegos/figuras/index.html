@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Figuras geométricas</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+    <main class="contenedor">
+
+
+        <a
+            href="../index.html"
+            class="volver"
+        >
+            🏠 Menú principal
+        </a>
+
+
+        <h1>
+            🔷 Figuras geométricas 🔷
+        </h1>
+
+
+        <p class="instruccion">
+            Busca la figura que se indica.
+        </p>
+
+
+        <!-- ==================================
+             NOMBRE DE LA FIGURA
+             ================================== -->
+
+        <div
+            id="nombreFigura"
+            class="nombre-figura"
+        >
+        </div>
+
+
+        <p class="ayuda">
+            👆 Haz clic en la figura correcta
+        </p>
+
+
+        <!-- ==================================
+             FIGURAS
+             ================================== -->
+
+        <div
+            id="figuras"
+            class="figuras"
+        >
+        </div>
+
+
+        <!-- ==================================
+             MENSAJE
+             ================================== -->
+
+        <div
+            id="mensaje"
+            class="mensaje"
+        >
+        </div>
+
+
+        <!-- ==================================
+             ESTRELLAS
+             ================================== -->
+
+        <div
+            id="estrellas"
+            class="estrellas"
+        >
+        </div>
+
+
+        <!-- ==================================
+             PROGRESO
+             ================================== -->
+
+        <div
+            id="progreso"
+            class="progreso"
+        >
+        </div>
+
+
+        <!-- ==================================
+             RESULTADO
+             ================================== -->
+
+        <div
+            id="resultado"
+            class="resultado"
+        >
+
+            <div
+                id="resultadoTitulo"
+                class="resultado-titulo"
+            >
+            </div>
+
+
+            <div
+                id="resultadoIntentos"
+                class="resultado-intentos"
+            >
+            </div>
+
+
+            <button
+                id="siguiente"
+                class="boton-siguiente"
+                onclick="siguienteFigura()"
+            >
+                Siguiente ➜
+            </button>
+
+        </div>
+
+
+        <!-- ==================================
+             REINICIAR
+             ================================== -->
+
+        <button
+            id="reiniciar"
+            onclick="reiniciarJuego()"
+        >
+            🔄 Jugar otra vez
+        </button>
+
+
+    </main>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
