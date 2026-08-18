@@ -54,6 +54,7 @@ body {
         rgba(0, 0, 0, 0.15);
 
     position: relative;
+
 }
 
 
@@ -82,12 +83,14 @@ body {
     font-size: 17px;
 
     font-weight: bold;
+
 }
 
 
 .volver:hover {
 
     background: #dddddd;
+
 }
 
 
@@ -104,6 +107,7 @@ h1 {
     margin-top: 45px;
 
     margin-bottom: 15px;
+
 }
 
 
@@ -117,7 +121,52 @@ h1 {
 
     color: #555;
 
-    margin-bottom: 30px;
+    margin-bottom: 20px;
+
+}
+
+
+/* ==========================================
+   IMAGEN DE LA PALABRA
+   ========================================== */
+
+.imagen-palabra {
+
+    min-height: 180px;
+
+    margin: 15px auto 20px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+}
+
+
+/* ==========================================
+   IMAGEN
+   ========================================== */
+
+.imagen-palabra-img {
+
+    width: 180px;
+
+    height: 180px;
+
+    object-fit: contain;
+
+    border-radius: 20px;
+
+    background: white;
+
+    padding: 8px;
+
+    box-shadow:
+        0 5px 15px
+        rgba(0, 0, 0, 0.12);
+
 }
 
 
@@ -137,9 +186,10 @@ h1 {
 
     gap: 15px;
 
-    margin: 25px auto;
+    margin: 20px auto;
 
     min-height: 90px;
+
 }
 
 
@@ -168,6 +218,7 @@ h1 {
     box-shadow:
         0 4px 8px
         rgba(0, 0, 0, 0.15);
+
 }
 
 
@@ -179,7 +230,7 @@ h1 {
 
     min-height: 90px;
 
-    margin: 30px auto;
+    margin: 25px auto;
 
     display: flex;
 
@@ -190,6 +241,7 @@ h1 {
     align-items: center;
 
     gap: 8px;
+
 }
 
 
@@ -208,11 +260,12 @@ h1 {
     gap: 8px;
 
     min-height: 70px;
+
 }
 
 
 /* ==========================================
-   CASILLA DE LETRA
+   CASILLAS DE LETRAS
    ========================================== */
 
 .casilla-letra {
@@ -245,6 +298,7 @@ h1 {
         background 0.2s,
         border 0.2s,
         transform 0.2s;
+
 }
 
 
@@ -275,7 +329,7 @@ h1 {
 
 
 /* ==========================================
-   LETRA PRESENTE EN OTRA POSICIÓN
+   LETRA PRESENTE
    ========================================== */
 
 .letra-amarilla {
@@ -305,22 +359,6 @@ h1 {
 
 
 /* ==========================================
-   MENSAJE
-   ========================================== */
-
-.mensaje {
-
-    min-height: 55px;
-
-    font-size: 38px;
-
-    font-weight: bold;
-
-    margin-top: 15px;
-}
-
-
-/* ==========================================
    AYUDA
    ========================================== */
 
@@ -336,7 +374,25 @@ h1 {
 
     border-radius: 15px;
 
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+
+}
+
+
+/* ==========================================
+   MENSAJE
+   ========================================== */
+
+.mensaje {
+
+    min-height: 55px;
+
+    font-size: 38px;
+
+    font-weight: bold;
+
+    margin-top: 10px;
+
 }
 
 
@@ -351,6 +407,7 @@ h1 {
     font-size: 42px;
 
     margin: 10px;
+
 }
 
 
@@ -365,6 +422,7 @@ h1 {
     color: #666;
 
     margin-top: 15px;
+
 }
 
 
@@ -391,6 +449,7 @@ h1 {
     box-shadow:
         0 5px 15px
         rgba(0, 0, 0, 0.10);
+
 }
 
 
@@ -403,6 +462,7 @@ h1 {
     color: #1565c0;
 
     margin-bottom: 15px;
+
 }
 
 
@@ -415,6 +475,7 @@ h1 {
     color: #333;
 
     margin-bottom: 15px;
+
 }
 
 
@@ -425,6 +486,7 @@ h1 {
     color: #555;
 
     margin-bottom: 15px;
+
 }
 
 
@@ -449,6 +511,7 @@ h1 {
     font-weight: bold;
 
     margin-bottom: 20px;
+
 }
 
 
@@ -475,6 +538,7 @@ h1 {
     cursor: pointer;
 
     transition: 0.2s;
+
 }
 
 
@@ -483,6 +547,7 @@ h1 {
     background: #43a047;
 
     transform: scale(1.05);
+
 }
 
 
@@ -509,6 +574,7 @@ h1 {
     font-size: 26px;
 
     cursor: pointer;
+
 }
 
 
@@ -517,6 +583,7 @@ h1 {
     background: #43a047;
 
     transform: scale(1.05);
+
 }
 
 
@@ -528,22 +595,30 @@ h1 {
 
     animation:
         correcto 0.5s ease;
+
 }
 
 
 @keyframes correcto {
 
     0% {
+
         transform: scale(1);
+
     }
 
     50% {
+
         transform: scale(1.15);
+
     }
 
     100% {
+
         transform: scale(1);
+
     }
+
 }
 
 
@@ -555,30 +630,42 @@ h1 {
 
     animation:
         error 0.3s ease;
+
 }
 
 
 @keyframes error {
 
     0% {
+
         transform: translateX(0);
+
     }
 
     25% {
+
         transform: translateX(-10px);
+
     }
 
     50% {
+
         transform: translateX(10px);
+
     }
 
     75% {
+
         transform: translateX(-10px);
+
     }
 
     100% {
+
         transform: translateX(0);
+
     }
+
 }
 
 
@@ -605,23 +692,55 @@ h1 {
 
 @media (max-width: 600px) {
 
+    .contenedor {
+
+        width: 95%;
+
+        padding: 20px;
+
+        border-radius: 22px;
+
+    }
+
+
     h1 {
 
         font-size: 34px;
 
         margin-top: 50px;
+
     }
 
 
     .instruccion {
 
         font-size: 20px;
+
+    }
+
+
+    .imagen-palabra {
+
+        min-height: 130px;
+
+        margin: 10px auto 15px;
+
+    }
+
+
+    .imagen-palabra-img {
+
+        width: 130px;
+
+        height: 130px;
+
     }
 
 
     .letras-desordenadas {
 
         gap: 8px;
+
     }
 
 
@@ -632,14 +751,18 @@ h1 {
         height: 55px;
 
         font-size: 30px;
+
+        border-radius: 14px;
+
     }
 
 
     .palabra {
 
-        margin: 25px auto;
+        margin: 20px auto;
 
         gap: 5px;
+
     }
 
 
@@ -668,42 +791,49 @@ h1 {
         font-size: 19px;
 
         padding: 12px 18px;
+
     }
 
 
     .mensaje {
 
         font-size: 30px;
+
     }
 
 
     .estrellas {
 
         font-size: 35px;
+
     }
 
 
     .resultado-titulo {
 
         font-size: 28px;
+
     }
 
 
     .resultado-palabra {
 
         font-size: 25px;
+
     }
 
 
     .resultado-intentos {
 
         font-size: 21px;
+
     }
 
 
     .checkpoint {
 
         font-size: 23px;
+
     }
 
 
