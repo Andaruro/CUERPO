@@ -138,13 +138,17 @@ function cargarPalabra() {
     );
 
 
-    palabra.textContent = "";
+    // Crear la primera fila de letras
+
+    crearFilaActual();
 
 
-    mensaje.textContent = "";
+    mensaje.textContent =
+        "⌨️ Escribe las letras en orden";
 
 
-    mensaje.style.color = "#333";
+    mensaje.style.color =
+        "#333";
 
 
     estrellasElemento.textContent =
@@ -157,10 +161,16 @@ function cargarPalabra() {
 
     // Ocultar menú de resultado
 
-    resultado.style.display = "none";
+    resultado.style.display =
+        "none";
 
 
-    checkpoint.style.display = "none";
+    checkpoint.style.display =
+        "none";
+
+
+    botonReiniciar.style.display =
+        "none";
 
 }
 
@@ -227,6 +237,122 @@ function mostrarLetrasDesordenadas(texto) {
 
 
 // ==========================================
+// CREAR FILA ACTUAL
+// ==========================================
+
+function crearFilaActual() {
+
+    const palabraCorrecta =
+        palabras[palabraActual];
+
+
+    const fila =
+        document.createElement(
+            "div"
+        );
+
+
+    fila.classList.add(
+        "fila-palabra",
+        "fila-actual"
+    );
+
+
+    for (
+        let i = 0;
+        i < palabraCorrecta.length;
+        i++
+    ) {
+
+        const casilla =
+            document.createElement(
+                "span"
+            );
+
+
+        casilla.classList.add(
+            "casilla-letra"
+        );
+
+
+        fila.appendChild(
+            casilla
+        );
+
+    }
+
+
+    palabra.innerHTML = "";
+
+
+    palabra.appendChild(
+        fila
+    );
+
+}
+
+
+// ==========================================
+// ACTUALIZAR FILA ACTUAL
+// ==========================================
+
+function actualizarFilaActual() {
+
+    const fila =
+        palabra.querySelector(
+            ".fila-actual"
+        );
+
+
+    if (!fila) {
+        return;
+    }
+
+
+    const casillas =
+        fila.querySelectorAll(
+            ".casilla-letra"
+        );
+
+
+    casillas.forEach(
+        function(casilla, indice) {
+
+            casilla.textContent =
+                letrasEscritas[indice] || "";
+
+        }
+    );
+
+
+    // Cuando ya están todas las letras
+
+    if (
+        letrasEscritas.length ===
+        palabras[palabraActual].length
+    ) {
+
+        mensaje.textContent =
+            "↵ Presiona ENTER para comprobar";
+
+        mensaje.style.color =
+            "#1565c0";
+
+    }
+    else {
+
+        mensaje.textContent =
+            "⌨️ Escribe las letras en orden";
+
+        mensaje.style.color =
+            "#333";
+
+    }
+
+}
+
+
+// ==========================================
 // TECLADO
 // ==========================================
 
@@ -243,11 +369,47 @@ document.addEventListener(
             event.key.toUpperCase();
 
 
-        // Solo aceptar letras
+        // ==================================
+        // ENTER
+        // ==================================
+
+        if (
+            event.key === "Enter"
+        ) {
+
+            event.preventDefault();
+
+            comprobarPalabra();
+
+            return;
+
+        }
+
+
+        // ==================================
+        // BACKSPACE
+        // ==================================
+
+        if (
+            event.key === "Backspace"
+        ) {
+
+            event.preventDefault();
+
+            borrarLetra();
+
+            return;
+
+        }
+
+
+        // ==================================
+        // SOLO ACEPTAR LETRAS
+        // ==================================
 
         if (
             tecla.length !== 1 ||
-            !/^[A-ZÁÉÍÓÚÑ]$/.test(tecla)
+            !/^[A-ZÁÉÍÓÚÜÑ]$/.test(tecla)
         ) {
 
             return;
@@ -255,122 +417,397 @@ document.addEventListener(
         }
 
 
-        comprobarLetra(tecla);
+        agregarLetra(tecla);
 
     }
 );
 
 
 // ==========================================
-// COMPROBAR LETRA
+// AGREGAR LETRA
 // ==========================================
 
-function comprobarLetra(letra) {
+function agregarLetra(letra) {
 
     const palabraCorrecta =
         palabras[palabraActual];
 
 
-    const posicion =
-        letrasEscritas.length;
+    // No permitir más letras de las necesarias
+
+    if (
+        letrasEscritas.length >=
+        palabraCorrecta.length
+    ) {
+
+        mensaje.textContent =
+            "↵ Presiona ENTER para comprobar";
+
+        mensaje.style.color =
+            "#1565c0";
+
+        return;
+
+    }
 
 
-    const letraCorrecta =
-        palabraCorrecta[posicion];
+    letrasEscritas += letra;
 
 
-    // Contar intento
+    actualizarFilaActual();
+
+}
+
+
+// ==========================================
+// BORRAR LETRA
+// ==========================================
+
+function borrarLetra() {
+
+    if (
+        letrasEscritas.length === 0
+    ) {
+
+        return;
+
+    }
+
+
+    letrasEscritas =
+        letrasEscritas.slice(
+            0,
+            -1
+        );
+
+
+    actualizarFilaActual();
+
+}
+
+
+// ==========================================
+// COMPROBAR PALABRA
+// ==========================================
+
+function comprobarPalabra() {
+
+    const palabraCorrecta =
+        palabras[palabraActual];
+
+
+    // ==================================
+    // NO ESTÁ COMPLETA
+    // ==================================
+
+    if (
+        letrasEscritas.length <
+        palabraCorrecta.length
+    ) {
+
+        mensaje.textContent =
+            `⚠️ Faltan ${
+                palabraCorrecta.length -
+                letrasEscritas.length
+            } letras`;
+
+        mensaje.style.color =
+            "#F44336";
+
+
+        const fila =
+            palabra.querySelector(
+                ".fila-actual"
+            );
+
+
+        if (fila) {
+
+            fila.classList.add(
+                "error"
+            );
+
+
+            setTimeout(
+                function() {
+
+                    fila.classList.remove(
+                        "error"
+                    );
+
+                },
+                400
+            );
+
+        }
+
+
+        return;
+
+    }
+
+
+    // ==================================
+    // ENTER CUENTA COMO INTENTO
+    // ==================================
 
     intentos++;
 
 
-    // ======================================
-    // LETRA CORRECTA
-    // ======================================
+    // ==================================
+    // EVALUAR LETRAS
+    // ==================================
+
+    evaluarIntento(
+        letrasEscritas,
+        palabraCorrecta
+    );
+
+
+    // ==================================
+    // PALABRA CORRECTA
+    // ==================================
 
     if (
-        letra === letraCorrecta
+        letrasEscritas ===
+        palabraCorrecta
     ) {
 
-        letrasEscritas += letra;
+        completarPalabra();
+
+        return;
+
+    }
 
 
-        palabra.textContent =
-            letrasEscritas;
+    // ==================================
+    // PALABRA INCORRECTA
+    // ==================================
+
+    mensaje.textContent =
+        "😊 ¡Mira los colores e inténtalo otra vez!";
+
+    mensaje.style.color =
+        "#F44336";
 
 
-        palabra.classList.add(
-            "correcto"
+    // Crear una nueva fila
+
+    crearNuevaFila();
+
+
+    letrasEscritas = "";
+
+}
+
+
+// ==========================================
+// EVALUAR INTENTO
+// ==========================================
+
+function evaluarIntento(
+    intento,
+    palabraCorrecta
+) {
+
+    const fila =
+        palabra.querySelector(
+            ".fila-actual"
         );
 
 
-        setTimeout(
-            function() {
+    if (!fila) {
+        return;
+    }
 
-                palabra.classList.remove(
-                    "correcto"
-                );
 
-            },
-            300
+    const casillas =
+        fila.querySelectorAll(
+            ".casilla-letra"
         );
 
 
-        mensaje.textContent =
-            "👍 ¡Muy bien!";
+    const letrasDisponibles =
+        palabraCorrecta
+            .split("");
 
 
-        mensaje.style.color =
-            "#4CAF50";
+    const resultadoLetras =
+        [];
 
 
-        // ==================================
-        // PALABRA COMPLETA
-        // ==================================
+    // ==================================
+    // PRIMERA PASADA
+    // LETRAS VERDES
+    // ==================================
+
+    for (
+        let i = 0;
+        i < intento.length;
+        i++
+    ) {
 
         if (
-            letrasEscritas ===
-            palabraCorrecta
+            intento[i] ===
+            palabraCorrecta[i]
         ) {
 
-            completarPalabra();
+            resultadoLetras[i] =
+                "correcta";
+
+
+            letrasDisponibles[i] =
+                null;
 
         }
 
     }
 
 
-    // ======================================
-    // LETRA INCORRECTA
-    // ======================================
+    // ==================================
+    // SEGUNDA PASADA
+    // AMARILLAS Y GRISES
+    // ==================================
 
-    else {
+    for (
+        let i = 0;
+        i < intento.length;
+        i++
+    ) {
 
-        mensaje.textContent =
-            "😊 ¡Intenta otra vez!";
+        if (
+            resultadoLetras[i] ===
+            "correcta"
+        ) {
+
+            continue;
+
+        }
 
 
-        mensaje.style.color =
-            "#F44336";
+        const posicion =
+            letrasDisponibles.indexOf(
+                intento[i]
+            );
 
 
-        palabra.classList.add(
-            "error"
+        if (
+            posicion !== -1
+        ) {
+
+            resultadoLetras[i] =
+                "presente";
+
+
+            letrasDisponibles[posicion] =
+                null;
+
+        }
+        else {
+
+            resultadoLetras[i] =
+                "incorrecta";
+
+        }
+
+    }
+
+
+    // ==================================
+    // APLICAR COLORES
+    // ==================================
+
+    casillas.forEach(
+        function(casilla, indice) {
+
+            if (
+                resultadoLetras[indice] ===
+                "correcta"
+            ) {
+
+                casilla.classList.add(
+                    "letra-verde"
+                );
+
+            }
+            else if (
+                resultadoLetras[indice] ===
+                "presente"
+            ) {
+
+                casilla.classList.add(
+                    "letra-amarilla"
+                );
+
+            }
+            else {
+
+                casilla.classList.add(
+                    "letra-gris"
+                );
+
+            }
+
+        }
+    );
+
+
+    fila.classList.remove(
+        "fila-actual"
+    );
+
+}
+
+
+// ==========================================
+// CREAR NUEVA FILA
+// ==========================================
+
+function crearNuevaFila() {
+
+    const palabraCorrecta =
+        palabras[palabraActual];
+
+
+    const fila =
+        document.createElement(
+            "div"
         );
 
 
-        setTimeout(
-            function() {
+    fila.classList.add(
+        "fila-palabra",
+        "fila-actual"
+    );
 
-                palabra.classList.remove(
-                    "error"
-                );
 
-            },
-            400
+    for (
+        let i = 0;
+        i < palabraCorrecta.length;
+        i++
+    ) {
+
+        const casilla =
+            document.createElement(
+                "span"
+            );
+
+
+        casilla.classList.add(
+            "casilla-letra"
+        );
+
+
+        fila.appendChild(
+            casilla
         );
 
     }
+
+
+    palabra.appendChild(
+        fila
+    );
 
 }
 
@@ -388,20 +825,8 @@ function completarPalabra() {
         palabras[palabraActual];
 
 
-    palabra.textContent =
+    letrasEscritas =
         palabraCorrecta;
-
-
-    palabra.classList.add(
-        "correcto"
-    );
-
-
-    estrellas++;
-
-
-    estrellasElemento.textContent =
-        "⭐".repeat(estrellas);
 
 
     mensaje.textContent =
@@ -410,6 +835,13 @@ function completarPalabra() {
 
     mensaje.style.color =
         "#4CAF50";
+
+
+    estrellas++;
+
+
+    estrellasElemento.textContent =
+        "⭐".repeat(estrellas);
 
 
     // Mostrar menú
@@ -449,9 +881,9 @@ function mostrarResultado() {
         `Intentos: ${intentos}`;
 
 
-    // ======================================
+    // ==================================
     // CHECKPOINT
-    // ======================================
+    // ==================================
 
     if (
         numeroPalabra === 10
@@ -487,9 +919,9 @@ function siguientePalabra() {
     palabraActual++;
 
 
-    // ======================================
+    // ==================================
     // TERMINAR
-    // ======================================
+    // ==================================
 
     if (
         palabraActual >=
@@ -520,8 +952,28 @@ function terminarJuego() {
     letrasDesordenadas.innerHTML = "";
 
 
-    palabra.textContent =
+    palabra.innerHTML =
+        "";
+
+
+    const mensajeFinal =
+        document.createElement(
+            "div"
+        );
+
+
+    mensajeFinal.classList.add(
+        "mensaje-final-palabra"
+    );
+
+
+    mensajeFinal.textContent =
         "¡LO LOGRASTE!";
+
+
+    palabra.appendChild(
+        mensajeFinal
+    );
 
 
     mensaje.textContent =
