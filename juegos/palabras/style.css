@@ -132,7 +132,7 @@ h1 {
 
 .imagen-palabra {
 
-    min-height: 180px;
+    min-height: 280px;
 
     margin: 15px auto 20px;
 
@@ -151,9 +151,9 @@ h1 {
 
 .imagen-palabra-img {
 
-    width: 180px;
+    width: 260px;
 
-    height: 180px;
+    height: 260px;
 
     object-fit: contain;
 
@@ -161,7 +161,7 @@ h1 {
 
     background: white;
 
-    padding: 8px;
+    padding: 12px;
 
     box-shadow:
         0 5px 15px
@@ -721,7 +721,7 @@ h1 {
 
     .imagen-palabra {
 
-        min-height: 130px;
+        min-height: 220px;
 
         margin: 10px auto 15px;
 
@@ -730,9 +730,11 @@ h1 {
 
     .imagen-palabra-img {
 
-        width: 130px;
+        width: 200px;
 
-        height: 130px;
+        height: 200px;
+
+        padding: 10px;
 
     }
 
