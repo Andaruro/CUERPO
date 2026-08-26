@@ -1,35 +1,41 @@
 // ==========================================
-// FIGURAS
+// FIGURAS DISPONIBLES
 // ==========================================
 
-const figuras = [
+const figurasDisponibles = [
 
     {
+        id: "circulo",
         nombre: "CÍRCULO",
         imagen: "img/circulo.png"
     },
 
     {
+        id: "cuadrado",
         nombre: "CUADRADO",
         imagen: "img/cuadrado.png"
     },
 
     {
+        id: "triangulo",
         nombre: "TRIÁNGULO",
         imagen: "img/triangulo.png"
     },
 
     {
+        id: "rectangulo",
         nombre: "RECTÁNGULO",
         imagen: "img/rectangulo.png"
     },
 
     {
+        id: "ovalo",
         nombre: "ÓVALO",
         imagen: "img/ovalo.png"
     },
 
     {
+        id: "rombo",
         nombre: "ROMBO",
         imagen: "img/rombo.png"
     }
@@ -38,27 +44,36 @@ const figuras = [
 
 
 // ==========================================
+// CONFIGURACIÓN
+// ==========================================
+
+const TOTAL_RONDAS = 10;
+
+const FIGURAS_POR_RONDA = 5;
+
+
+// ==========================================
 // VARIABLES
 // ==========================================
 
-let figuraActual = 0;
+let rondaActual = 1;
+
+let figurasRonda = [];
+
+let figurasCorrectas = 0;
 
 let intentos = 0;
 
-let aciertos = 0;
+let colocadas = 0;
 
 let bloqueado = false;
+
+let figuraArrastrada = null;
 
 
 // ==========================================
 // ELEMENTOS
 // ==========================================
-
-const nombreFigura =
-    document.getElementById(
-        "nombreFigura"
-    );
-
 
 const contenedorFiguras =
     document.getElementById(
@@ -66,9 +81,15 @@ const contenedorFiguras =
     );
 
 
-const mensaje =
+const contenedorNombres =
     document.getElementById(
-        "mensaje"
+        "nombres"
+    );
+
+
+const progreso =
+    document.getElementById(
+        "progreso"
     );
 
 
@@ -78,9 +99,9 @@ const estrellas =
     );
 
 
-const progreso =
+const mensaje =
     document.getElementById(
-        "progreso"
+        "mensaje"
     );
 
 
@@ -102,6 +123,12 @@ const resultadoIntentos =
     );
 
 
+const botonSiguiente =
+    document.getElementById(
+        "siguiente"
+    );
+
+
 const botonReiniciar =
     document.getElementById(
         "reiniciar"
@@ -109,62 +136,17 @@ const botonReiniciar =
 
 
 // ==========================================
-// CARGAR FIGURA
+// MEZCLAR ARRAY
 // ==========================================
 
-function cargarFigura() {
+function mezclar(array) {
 
-    bloqueado = false;
+    const copia =
+        [...array];
 
-    intentos = 0;
-
-
-    const figura =
-        figuras[figuraActual];
-
-
-    nombreFigura.textContent =
-        figura.nombre;
-
-
-    mensaje.textContent =
-        "";
-
-
-    estrellas.textContent =
-        "⭐".repeat(aciertos);
-
-
-    progreso.textContent =
-        `Figura ${figuraActual + 1} de ${figuras.length}`;
-
-
-    resultado.style.display =
-        "none";
-
-
-    contenedorFiguras.innerHTML =
-        "";
-
-
-    crearOpciones();
-
-}
-
-
-// ==========================================
-// CREAR OPCIONES
-// ==========================================
-
-function crearOpciones() {
-
-    let opciones = [...figuras];
-
-
-    // Mezclar las opciones
 
     for (
-        let i = opciones.length - 1;
+        let i = copia.length - 1;
         i > 0;
         i--
     ) {
@@ -176,65 +158,108 @@ function crearOpciones() {
 
 
         [
-            opciones[i],
-            opciones[j]
+            copia[i],
+            copia[j]
         ] = [
-            opciones[j],
-            opciones[i]
+            copia[j],
+            copia[i]
         ];
 
     }
 
 
-    opciones.forEach(
+    return copia;
+
+}
+
+
+// ==========================================
+// CREAR RONDA
+// ==========================================
+
+function crearRonda() {
+
+    bloqueado = false;
+
+    intentos = 0;
+
+    colocadas = 0;
+
+    figuraArrastrada = null;
+
+
+    // Elegir 5 de las 6 figuras
+
+    figurasRonda =
+        mezclar(
+            figurasDisponibles
+        ).slice(
+            0,
+            FIGURAS_POR_RONDA
+        );
+
+
+    mostrarRonda();
+
+}
+
+
+// ==========================================
+// MOSTRAR RONDA
+// ==========================================
+
+function mostrarRonda() {
+
+    contenedorFiguras.innerHTML = "";
+
+    contenedorNombres.innerHTML = "";
+
+    mensaje.textContent = "";
+
+    resultado.style.display = "none";
+
+
+    progreso.textContent =
+        `Ronda ${rondaActual} de ${TOTAL_RONDAS}`;
+
+
+    estrellas.textContent =
+        "⭐".repeat(figurasCorrectas);
+
+
+    // ======================================
+    // CREAR FIGURAS
+    // ======================================
+
+    const figurasMezcladas =
+        mezclar(
+            figurasRonda
+        );
+
+
+    figurasMezcladas.forEach(
         function(figura) {
 
-            const tarjeta =
-                document.createElement(
-                    "div"
-                );
+            crearFigura(figura);
+
+        }
+    );
 
 
-            tarjeta.classList.add(
-                "figura"
-            );
+    // ======================================
+    // CREAR NOMBRES
+    // ======================================
+
+    const nombresMezclados =
+        mezclar(
+            figurasRonda
+        );
 
 
-            const imagen =
-                document.createElement(
-                    "img"
-                );
+    nombresMezclados.forEach(
+        function(figura) {
 
-
-            imagen.src =
-                figura.imagen;
-
-
-            imagen.alt =
-                figura.nombre;
-
-
-            tarjeta.appendChild(
-                imagen
-            );
-
-
-            tarjeta.addEventListener(
-                "click",
-                function() {
-
-                    comprobarFigura(
-                        figura,
-                        tarjeta
-                    );
-
-                }
-            );
-
-
-            contenedorFiguras.appendChild(
-                tarjeta
-            );
+            crearNombre(figura);
 
         }
     );
@@ -243,92 +268,328 @@ function crearOpciones() {
 
 
 // ==========================================
-// COMPROBAR FIGURA
+// CREAR FIGURA
 // ==========================================
 
-function comprobarFigura(
-    figura,
-    tarjeta
-) {
+function crearFigura(figura) {
+
+    const elemento =
+        document.createElement(
+            "div"
+        );
+
+
+    elemento.classList.add(
+        "figura"
+    );
+
+
+    elemento.dataset.id =
+        figura.id;
+
+
+    elemento.setAttribute(
+        "aria-label",
+        figura.nombre
+    );
+
+
+    const imagen =
+        document.createElement(
+            "img"
+        );
+
+
+    imagen.src =
+        figura.imagen;
+
+
+    imagen.alt =
+        figura.nombre;
+
+
+    elemento.appendChild(
+        imagen
+    );
+
+
+    // ======================================
+    // POINTER DOWN
+    // ======================================
+
+    elemento.addEventListener(
+        "pointerdown",
+        iniciarArrastre
+    );
+
+
+    contenedorFiguras.appendChild(
+        elemento
+    );
+
+}
+
+
+// ==========================================
+// CREAR NOMBRE
+// ==========================================
+
+function crearNombre(figura) {
+
+    const elemento =
+        document.createElement(
+            "div"
+        );
+
+
+    elemento.classList.add(
+        "nombre"
+    );
+
+
+    elemento.dataset.id =
+        figura.id;
+
+
+    elemento.textContent =
+        figura.nombre;
+
+
+    // ======================================
+    // POINTER EVENTS
+    // ======================================
+
+    elemento.addEventListener(
+        "pointerenter",
+        function() {
+
+            if (
+                figuraArrastrada &&
+                !elemento.classList.contains(
+                    "correcto"
+                )
+            ) {
+
+                elemento.classList.add(
+                    "hover"
+                );
+
+            }
+
+        }
+    );
+
+
+    elemento.addEventListener(
+        "pointerleave",
+        function() {
+
+            elemento.classList.remove(
+                "hover"
+            );
+
+        }
+    );
+
+
+    elemento.addEventListener(
+        "pointerup",
+        finalizarArrastre
+    );
+
+
+    contenedorNombres.appendChild(
+        elemento
+    );
+
+}
+
+
+// ==========================================
+// INICIAR ARRASTRE
+// ==========================================
+
+function iniciarArrastre(event) {
 
     if (bloqueado) {
         return;
     }
 
 
+    const elemento =
+        event.currentTarget;
+
+
+    figuraArrastrada =
+        elemento;
+
+
+    elemento.setPointerCapture(
+        event.pointerId
+    );
+
+
+    elemento.style.transform =
+        "scale(1.08)";
+
+
+    elemento.style.zIndex =
+        "100";
+
+
+    mensaje.textContent =
+        "👆 ¡Llévala a su nombre!";
+
+
+    mensaje.style.color =
+        "#1565c0";
+
+}
+
+
+// ==========================================
+// FINALIZAR ARRASTRE
+// ==========================================
+
+function finalizarArrastre(event) {
+
+    if (
+        bloqueado ||
+        !figuraArrastrada
+    ) {
+
+        return;
+
+    }
+
+
+    const destino =
+        event.currentTarget;
+
+
+    destino.classList.remove(
+        "hover"
+    );
+
+
+    const idFigura =
+        figuraArrastrada.dataset.id;
+
+
+    const idDestino =
+        destino.dataset.id;
+
+
     intentos++;
 
 
-    const correcta =
-        figuras[figuraActual];
-
-
     // ======================================
-    // CORRECTA
+    // CORRECTO
     // ======================================
 
     if (
-        figura.nombre ===
-        correcta.nombre
+        idFigura === idDestino
     ) {
 
-        bloqueado = true;
-
-
-        tarjeta.classList.add(
-            "correcta"
+        colocarCorrectamente(
+            figuraArrastrada,
+            destino
         );
-
-
-        aciertos++;
-
-
-        estrellas.textContent =
-            "⭐".repeat(aciertos);
-
-
-        mensaje.textContent =
-            "🎉 ¡MUY BIEN! 🎉";
-
-
-        mensaje.style.color =
-            "#4CAF50";
-
-
-        mostrarResultado();
 
     }
 
 
     // ======================================
-    // INCORRECTA
+    // INCORRECTO
     // ======================================
 
     else {
 
-        tarjeta.classList.add(
-            "incorrecta"
+        respuestaIncorrecta(
+            destino
+        );
+
+    }
+
+
+    figuraArrastrada.style.transform =
+        "";
+
+    figuraArrastrada.style.zIndex =
+        "";
+
+
+    figuraArrastrada = null;
+
+}
+
+
+// ==========================================
+// RESPUESTA CORRECTA
+// ==========================================
+
+function colocarCorrectamente(
+    figura,
+    destino
+) {
+
+    destino.classList.add(
+        "correcto"
+    );
+
+
+    // Mover la imagen dentro
+    // del nombre
+
+    const imagen =
+        figura.querySelector(
+            "img"
         );
 
 
-        mensaje.textContent =
-            "😊 ¡Intenta otra vez!";
+    if (imagen) {
 
+        destino.innerHTML = "";
 
-        mensaje.style.color =
-            "#F44336";
-
-
-        setTimeout(
-            function() {
-
-                tarjeta.classList.remove(
-                    "incorrecta"
-                );
-
-            },
-            400
+        destino.appendChild(
+            imagen
         );
+
+    }
+
+
+    figura.remove();
+
+
+    colocadas++;
+
+    figurasCorrectas++;
+
+
+    estrellas.textContent =
+        "⭐".repeat(
+            figurasCorrectas
+        );
+
+
+    mensaje.textContent =
+        "🎉 ¡Muy bien!";
+
+
+    mensaje.style.color =
+        "#4CAF50";
+
+
+    // ======================================
+    // RONDA COMPLETADA
+    // ======================================
+
+    if (
+        colocadas ===
+        figurasRonda.length
+    ) {
+
+        finalizarRonda();
 
     }
 
@@ -336,10 +597,56 @@ function comprobarFigura(
 
 
 // ==========================================
-// RESULTADO
+// RESPUESTA INCORRECTA
 // ==========================================
 
-function mostrarResultado() {
+function respuestaIncorrecta(
+    destino
+) {
+
+    destino.classList.add(
+        "incorrecto"
+    );
+
+
+    mensaje.textContent =
+        "😊 ¡Intenta otra vez!";
+
+
+    mensaje.style.color =
+        "#F44336";
+
+
+    setTimeout(
+        function() {
+
+            destino.classList.remove(
+                "incorrecto"
+            );
+
+        },
+        400
+    );
+
+}
+
+
+// ==========================================
+// FINALIZAR RONDA
+// ==========================================
+
+function finalizarRonda() {
+
+    bloqueado = true;
+
+
+    mensaje.textContent =
+        "🌟 ¡Completaste la ronda! 🌟";
+
+
+    mensaje.style.color =
+        "#4CAF50";
+
 
     resultado.style.display =
         "block";
@@ -352,37 +659,52 @@ function mostrarResultado() {
     resultadoIntentos.textContent =
         `Intentos: ${intentos}`;
 
-}
 
-
-// ==========================================
-// SIGUIENTE FIGURA
-// ==========================================
-
-function siguienteFigura() {
-
-    figuraActual++;
-
+    // Última ronda
 
     if (
-        figuraActual >=
-        figuras.length
+        rondaActual ===
+        TOTAL_RONDAS
     ) {
 
-        terminarJuego();
-
-        return;
+        botonSiguiente.textContent =
+            "🏆 Terminar";
 
     }
 
-
-    cargarFigura();
-
 }
 
 
 // ==========================================
-// TERMINAR
+// SIGUIENTE RONDA
+// ==========================================
+
+botonSiguiente.addEventListener(
+    "click",
+    function() {
+
+        if (
+            rondaActual >=
+            TOTAL_RONDAS
+        ) {
+
+            terminarJuego();
+
+            return;
+
+        }
+
+
+        rondaActual++;
+
+        crearRonda();
+
+    }
+);
+
+
+// ==========================================
+// TERMINAR JUEGO
 // ==========================================
 
 function terminarJuego() {
@@ -394,24 +716,8 @@ function terminarJuego() {
         "";
 
 
-    nombreFigura.textContent =
-        "🏆 ¡LO LOGRASTE!";
-
-
-    mensaje.textContent =
-        "¡Completaste todas las figuras!";
-
-
-    mensaje.style.color =
-        "#1976D2";
-
-
-    estrellas.textContent =
-        "⭐".repeat(aciertos);
-
-
-    progreso.textContent =
-        `Completaste ${figuras.length} figuras`;
+    contenedorNombres.innerHTML =
+        "";
 
 
     resultado.style.display =
@@ -423,17 +729,33 @@ function terminarJuego() {
 
 
     resultadoIntentos.textContent =
-        `Figuras correctas: ${aciertos}`;
+        `Completaste ${TOTAL_RONDAS} rondas.`;
 
 
-    document.getElementById(
-        "siguiente"
-    ).style.display =
+    mensaje.textContent =
+        "🎉 ¡Terminaste el juego! 🎉";
+
+
+    mensaje.style.color =
+        "#1565c0";
+
+
+    progreso.textContent =
+        "¡Juego completado!";
+
+
+    botonSiguiente.style.display =
         "none";
 
 
     botonReiniciar.style.display =
         "inline-block";
+
+
+    estrellas.textContent =
+        "⭐".repeat(
+            figurasCorrectas
+        );
 
 }
 
@@ -442,32 +764,38 @@ function terminarJuego() {
 // REINICIAR
 // ==========================================
 
-function reiniciarJuego() {
+botonReiniciar.addEventListener(
+    "click",
+    function() {
 
-    figuraActual = 0;
+        rondaActual = 1;
 
-    intentos = 0;
+        figurasCorrectas = 0;
 
-    aciertos = 0;
+        intentos = 0;
 
+        colocadas = 0;
 
-    botonReiniciar.style.display =
-        "none";
-
-
-    document.getElementById(
-        "siguiente"
-    ).style.display =
-        "inline-block";
+        botonReiniciar.style.display =
+            "none";
 
 
-    cargarFigura();
+        botonSiguiente.style.display =
+            "inline-block";
 
-}
+
+        botonSiguiente.textContent =
+            "Siguiente ➜";
+
+
+        crearRonda();
+
+    }
+);
 
 
 // ==========================================
-// INICIAR
+// INICIAR JUEGO
 // ==========================================
 
-cargarFigura();
+crearRonda();
