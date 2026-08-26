@@ -547,15 +547,46 @@ function colocarCorrectamente(
         );
 
 
-    if (imagen) {
+if (imagen) {
 
-        destino.innerHTML = "";
+    // Guardamos el nombre
+    const nombre =
+        destino.textContent;
 
-        destino.appendChild(
-            imagen
-        );
+    // Limpiamos el contenido
+    destino.innerHTML = "";
 
-    }
+    // Creamos un contenedor para la imagen
+    const imagenCorrecta =
+        document.createElement("img");
+
+    imagenCorrecta.src =
+        imagen.src;
+
+    imagenCorrecta.alt =
+        imagen.alt;
+
+    imagenCorrecta.classList.add(
+        "imagen-colocada"
+    );
+
+    // Volvemos a mostrar el nombre
+    const texto =
+        document.createElement("span");
+
+    texto.textContent =
+        nombre;
+
+    // Añadimos ambos elementos
+    destino.appendChild(
+        imagenCorrecta
+    );
+
+    destino.appendChild(
+        texto
+    );
+
+}
 
 
     figura.remove();
