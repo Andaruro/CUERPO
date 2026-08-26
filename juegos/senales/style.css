@@ -177,20 +177,20 @@ h1 {
 }
 
 /* ==========================================
-   FIGURAS (SEÑALES)
+   FIGURAS (SEÑALES) - 5 columnas para 10 señales
    ========================================== */
 
 .figuras {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 15px;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
 }
 
 .figura {
     background: white;
     border: 3px solid #e0e0e0;
     border-radius: 16px;
-    padding: 15px;
+    padding: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -220,30 +220,30 @@ h1 {
 }
 
 /* ==========================================
-   NOMBRES
+   NOMBRES - 2 columnas para 10 nombres
    ========================================== */
 
 .nombres {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
+    gap: 10px;
 }
 
 .nombre {
     background: white;
     border: 3px solid #e0e0e0;
     border-radius: 12px;
-    padding: 15px 10px;
+    padding: 12px 8px;
     text-align: center;
     font-weight: 600;
     color: #1a237e;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     transition: all 0.3s ease;
-    min-height: 60px;
+    min-height: 55px;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 8px;
     user-select: none;
     -webkit-user-select: none;
 }
@@ -267,8 +267,8 @@ h1 {
 }
 
 .nombre img.imagen-colocada {
-    max-width: 40px;
-    max-height: 40px;
+    max-width: 35px;
+    max-height: 35px;
     object-fit: contain;
 }
 
@@ -350,6 +350,12 @@ h1 {
    RESPONSIVE
    ========================================== */
 
+@media (max-width: 1024px) {
+    .figuras {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
 @media (max-width: 768px) {
     .contenedor {
         padding: 15px;
@@ -365,7 +371,7 @@ h1 {
     }
 
     .figuras {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(5, 1fr);
     }
 
     .nombres {
@@ -383,7 +389,28 @@ h1 {
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 600px) {
+    .figuras {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .nombres {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .nombre {
+        font-size: 0.75rem;
+        padding: 8px 5px;
+        min-height: 45px;
+    }
+
+    .nombre img.imagen-colocada {
+        max-width: 25px;
+        max-height: 25px;
+    }
+}
+
+@media (max-width: 400px) {
     .figuras {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -393,6 +420,6 @@ h1 {
     }
 
     h1 {
-        font-size: 1.5rem;
+        font-size: 1.3rem;
     }
 }
