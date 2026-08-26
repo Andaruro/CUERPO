@@ -53,6 +53,26 @@ const FIGURAS_POR_RONDA = 5;
 
 
 // ==========================================
+// 👇 NUEVO: ORDEN FIJO DE RONDAS 👇
+// ==========================================
+
+// Definimos manualmente qué figuras aparecerán en cada ronda
+// (usamos índices de figurasDisponibles)
+const rondasPredefinidas = [
+    [0, 1, 2, 3, 4], // Ronda 1: círculo, cuadrado, triángulo, rectángulo, óvalo
+    [1, 2, 3, 4, 5], // Ronda 2: cuadrado, triángulo, rectángulo, óvalo, rombo
+    [0, 2, 3, 4, 5], // Ronda 3: círculo, triángulo, rectángulo, óvalo, rombo
+    [0, 1, 3, 4, 5], // Ronda 4: círculo, cuadrado, rectángulo, óvalo, rombo
+    [0, 1, 2, 4, 5], // Ronda 5: círculo, cuadrado, triángulo, óvalo, rombo
+    [0, 1, 2, 3, 5], // Ronda 6: círculo, cuadrado, triángulo, rectángulo, rombo
+    [0, 1, 2, 3, 4], // Ronda 7: círculo, cuadrado, triángulo, rectángulo, óvalo
+    [1, 2, 3, 4, 5], // Ronda 8: cuadrado, triángulo, rectángulo, óvalo, rombo
+    [0, 2, 3, 4, 5], // Ronda 9: círculo, triángulo, rectángulo, óvalo, rombo
+    [0, 1, 2, 4, 5], // Ronda 10: círculo, cuadrado, triángulo, óvalo, rombo
+];
+
+
+// ==========================================
 // VARIABLES
 // ==========================================
 
@@ -136,7 +156,7 @@ const botonReiniciar =
 
 
 // ==========================================
-// MEZCLAR ARRAY
+// MEZCLAR ARRAY (solo para orden de presentación)
 // ==========================================
 
 function mezclar(array) {
@@ -174,7 +194,7 @@ function mezclar(array) {
 
 
 // ==========================================
-// CREAR RONDA
+// 👇 CREAR RONDA (VERSIÓN CON ORDEN FIJO) 👇
 // ==========================================
 
 function crearRonda() {
@@ -188,15 +208,23 @@ function crearRonda() {
     figuraArrastrada = null;
 
 
-    // Elegir 5 de las 6 figuras
+    // ======================================
+    // 🔥 CAMBIO IMPORTANTE: Usar orden fijo
+    // ======================================
 
-    figurasRonda =
-        mezclar(
-            figurasDisponibles
-        ).slice(
-            0,
-            FIGURAS_POR_RONDA
-        );
+    // Obtener los índices predefinidos para esta ronda
+    // (si la rondaActual es 1, usamos el índice 0 del array)
+    const indiceRonda = rondaActual - 1;
+    
+    // Si por algún motivo nos pasamos, usamos la última ronda
+    const indices = rondasPredefinidas[
+        Math.min(indiceRonda, rondasPredefinidas.length - 1)
+    ];
+    
+    // Seleccionar las figuras según los índices fijos
+    figurasRonda = indices.map(function(indice) {
+        return figurasDisponibles[indice];
+    });
 
 
     mostrarRonda();
@@ -228,7 +256,7 @@ function mostrarRonda() {
 
 
     // ======================================
-    // CREAR FIGURAS
+    // CREAR FIGURAS (se mezcla solo el orden)
     // ======================================
 
     const figurasMezcladas =
@@ -247,7 +275,7 @@ function mostrarRonda() {
 
 
     // ======================================
-    // CREAR NOMBRES
+    // CREAR NOMBRES (se mezcla solo el orden)
     // ======================================
 
     const nombresMezclados =
