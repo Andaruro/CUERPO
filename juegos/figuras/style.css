@@ -17,8 +17,8 @@ body {
     background:
         linear-gradient(
             135deg,
-            #d7f9ff,
-            #ffffff
+            #8ed8ff,
+            #fff3b0
         );
 
     display: flex;
@@ -27,7 +27,8 @@ body {
 
     align-items: center;
 
-    color: #333;
+    padding: 25px;
+
 }
 
 
@@ -37,15 +38,15 @@ body {
 
 .contenedor {
 
-    width: 90%;
+    width: 100%;
 
-    max-width: 900px;
+    max-width: 1100px;
 
     background: white;
 
-    border-radius: 30px;
+    border-radius: 35px;
 
-    padding: 30px;
+    padding: 35px;
 
     text-align: center;
 
@@ -54,6 +55,7 @@ body {
         rgba(0, 0, 0, 0.15);
 
     position: relative;
+
 }
 
 
@@ -82,34 +84,33 @@ body {
     font-size: 17px;
 
     font-weight: bold;
+
 }
 
 
 .volver:hover {
 
     background: #dddddd;
+
 }
 
 
 /* ==========================================
-   TITULO
+   TÍTULO
    ========================================== */
 
 h1 {
 
-    color: #1565c0;
-
-    font-size: 45px;
-
     margin-top: 45px;
 
     margin-bottom: 10px;
+
+    color: #1565c0;
+
+    font-size: 48px;
+
 }
 
-
-/* ==========================================
-   INSTRUCCIÓN
-   ========================================== */
 
 .instruccion {
 
@@ -117,49 +118,71 @@ h1 {
 
     color: #555;
 
-    margin-bottom: 25px;
+    margin: 10px 0;
+
 }
 
 
 /* ==========================================
-   NOMBRE DE LA FIGURA
+   PROGRESO
    ========================================== */
 
-.nombre-figura {
-
-    display: inline-block;
-
-    background: #e3f2fd;
-
-    color: #1565c0;
-
-    font-size: 42px;
-
-    font-weight: bold;
-
-    padding: 18px 35px;
-
-    border-radius: 20px;
-
-    margin-bottom: 15px;
-}
-
-
-/* ==========================================
-   AYUDA
-   ========================================== */
-
-.ayuda {
+.progreso {
 
     font-size: 22px;
 
-    background: #fff3cd;
+    color: #666;
 
-    padding: 12px 20px;
+    margin-top: 20px;
 
-    border-radius: 15px;
+}
 
-    display: inline-block;
+
+/* ==========================================
+   ESTRELLAS
+   ========================================== */
+
+.estrellas {
+
+    min-height: 45px;
+
+    margin: 10px;
+
+    font-size: 38px;
+
+}
+
+
+/* ==========================================
+   ZONA DEL JUEGO
+   ========================================== */
+
+.zona-juego {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 60px;
+
+    margin-top: 20px;
+
+}
+
+
+/* ==========================================
+   COLUMNAS
+   ========================================== */
+
+.columna h2 {
+
+    font-size: 30px;
+
+    color: #444;
+
+    margin-bottom: 20px;
+
 }
 
 
@@ -169,67 +192,141 @@ h1 {
 
 .figuras {
 
-    display: grid;
+    display: flex;
 
-    grid-template-columns:
-        repeat(3, 1fr);
+    flex-direction: column;
 
-    gap: 20px;
+    gap: 15px;
 
-    max-width: 700px;
-
-    margin: 30px auto;
 }
 
 
 /* ==========================================
-   TARJETA DE FIGURA
+   FIGURA ARRASTRABLE
    ========================================== */
 
 .figura {
 
+    width: 100%;
+
+    min-height: 105px;
+
     background: #f5f5f5;
 
-    border: 4px solid transparent;
+    border: 4px solid #90caf9;
 
     border-radius: 20px;
-
-    padding: 15px;
-
-    cursor: pointer;
-
-    transition:
-        transform 0.2s,
-        border 0.2s,
-        background 0.2s;
-
-    min-height: 180px;
 
     display: flex;
 
     justify-content: center;
 
     align-items: center;
+
+    cursor: grab;
+
+    transition:
+        transform 0.2s,
+        background 0.2s,
+        border 0.2s;
+
+    user-select: none;
+
+    touch-action: none;
+
+}
+
+
+.figura:active {
+
+    cursor: grabbing;
+
 }
 
 
 .figura:hover {
 
-    transform: scale(1.05);
-
-    border-color: #90caf9;
+    transform: scale(1.03);
 
     background: #e3f2fd;
+
 }
 
 
 .figura img {
 
-    width: 130px;
+    width: 90px;
 
-    height: 130px;
+    height: 90px;
 
     object-fit: contain;
+
+    pointer-events: none;
+
+}
+
+
+/* ==========================================
+   NOMBRES
+   ========================================== */
+
+.nombres {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 15px;
+
+}
+
+
+/* ==========================================
+   DESTINO
+   ========================================== */
+
+.nombre {
+
+    width: 100%;
+
+    min-height: 105px;
+
+    background: #fff8e1;
+
+    border: 4px dashed #ffb300;
+
+    border-radius: 20px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    font-size: 28px;
+
+    font-weight: bold;
+
+    color: #555;
+
+    transition:
+        background 0.2s,
+        transform 0.2s,
+        border 0.2s;
+
+    user-select: none;
+
+}
+
+
+.nombre.hover {
+
+    background: #fff3c4;
+
+    border-color: #ff8f00;
+
+    transform: scale(1.03);
+
 }
 
 
@@ -237,13 +334,21 @@ h1 {
    CORRECTO
    ========================================== */
 
-.figura.correcta {
+.correcto {
 
-    border-color: #4caf50;
+    background: #e8f5e9 !important;
 
-    background: #e8f5e9;
+    border-color: #4caf50 !important;
 
-    transform: scale(1.08);
+    border-style: solid !important;
+
+}
+
+
+.correcto img {
+
+    opacity: 0.8;
+
 }
 
 
@@ -251,14 +356,15 @@ h1 {
    INCORRECTO
    ========================================== */
 
-.figura.incorrecta {
+.incorrecto {
 
-    border-color: #f44336;
+    background: #ffebee !important;
 
-    background: #ffebee;
+    border-color: #f44336 !important;
 
     animation:
-        error 0.3s ease;
+        error 0.35s ease;
+
 }
 
 
@@ -270,39 +376,12 @@ h1 {
 
     min-height: 55px;
 
-    font-size: 36px;
+    margin-top: 20px;
+
+    font-size: 32px;
 
     font-weight: bold;
 
-    margin-top: 10px;
-}
-
-
-/* ==========================================
-   ESTRELLAS
-   ========================================== */
-
-.estrellas {
-
-    min-height: 50px;
-
-    font-size: 40px;
-
-    margin: 10px;
-}
-
-
-/* ==========================================
-   PROGRESO
-   ========================================== */
-
-.progreso {
-
-    font-size: 21px;
-
-    color: #666;
-
-    margin-top: 10px;
 }
 
 
@@ -314,29 +393,31 @@ h1 {
 
     display: none;
 
-    margin: 20px auto;
-
-    padding: 25px;
+    margin: 25px auto 0;
 
     max-width: 500px;
+
+    padding: 25px;
 
     background: #f5faff;
 
     border: 3px solid #90caf9;
 
     border-radius: 25px;
+
 }
 
 
 .resultado-titulo {
 
-    font-size: 34px;
+    font-size: 35px;
 
     font-weight: bold;
 
     color: #1565c0;
 
     margin-bottom: 15px;
+
 }
 
 
@@ -347,6 +428,7 @@ h1 {
     color: #555;
 
     margin-bottom: 20px;
+
 }
 
 
@@ -372,7 +454,6 @@ h1 {
 
     cursor: pointer;
 
-    transition: 0.2s;
 }
 
 
@@ -381,6 +462,7 @@ h1 {
     background: #43a047;
 
     transform: scale(1.05);
+
 }
 
 
@@ -388,13 +470,13 @@ h1 {
    REINICIAR
    ========================================== */
 
-#reiniciar {
+.reiniciar {
 
     display: none;
 
-    margin-top: 20px;
+    margin-top: 25px;
 
-    padding: 18px 35px;
+    padding: 16px 35px;
 
     border: none;
 
@@ -406,7 +488,17 @@ h1 {
 
     font-size: 25px;
 
+    font-weight: bold;
+
     cursor: pointer;
+
+}
+
+
+.reiniciar:hover {
+
+    background: #43a047;
+
 }
 
 
@@ -421,19 +513,48 @@ h1 {
     }
 
     25% {
-        transform: translateX(-8px);
+        transform: translateX(-10px);
     }
 
     50% {
-        transform: translateX(8px);
+        transform: translateX(10px);
     }
 
     75% {
-        transform: translateX(-8px);
+        transform: translateX(-10px);
     }
 
     100% {
         transform: translateX(0);
+    }
+
+}
+
+
+/* ==========================================
+   TABLET
+   ========================================== */
+
+@media (max-width: 800px) {
+
+    .zona-juego {
+
+        gap: 25px;
+
+    }
+
+
+    .columna h2 {
+
+        font-size: 25px;
+
+    }
+
+
+    .nombre {
+
+        font-size: 22px;
+
     }
 
 }
@@ -445,62 +566,75 @@ h1 {
 
 @media (max-width: 600px) {
 
+    body {
+
+        padding: 10px;
+
+    }
+
+
+    .contenedor {
+
+        padding: 20px;
+
+        border-radius: 25px;
+
+    }
+
+
     h1 {
 
         font-size: 32px;
 
         margin-top: 50px;
+
     }
 
 
     .instruccion {
 
         font-size: 20px;
+
     }
 
 
-    .nombre-figura {
+    .zona-juego {
 
-        font-size: 30px;
+        grid-template-columns: 1fr;
 
-        padding: 14px 25px;
+        gap: 20px;
+
     }
 
 
-    .figuras {
+    .figura,
+    .nombre {
 
-        grid-template-columns:
-            repeat(2, 1fr);
+        min-height: 85px;
 
-        gap: 12px;
-    }
-
-
-    .figura {
-
-        min-height: 140px;
-
-        padding: 10px;
     }
 
 
     .figura img {
 
-        width: 95px;
+        width: 70px;
 
-        height: 95px;
+        height: 70px;
+
+    }
+
+
+    .nombre {
+
+        font-size: 20px;
+
     }
 
 
     .mensaje {
 
-        font-size: 28px;
-    }
+        font-size: 26px;
 
-
-    .estrellas {
-
-        font-size: 32px;
     }
 
 }
