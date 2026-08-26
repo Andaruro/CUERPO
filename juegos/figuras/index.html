@@ -12,7 +12,10 @@
 
     <title>Figuras geométricas</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
 
 </head>
 
@@ -21,65 +24,38 @@
     <main class="contenedor">
 
 
+        <!-- BOTÓN VOLVER -->
+
         <a
-            href="../index.html"
+            href="../../index.html"
             class="volver"
         >
             🏠 Menú principal
         </a>
 
 
+        <!-- ENCABEZADO -->
+
         <h1>
-            🔷 Figuras geométricas 🔷
+            🔷 ¡Figuras geométricas! 🔷
         </h1>
 
-
         <p class="instruccion">
-            Busca la figura que se indica.
+            Arrastra cada figura hasta su nombre.
         </p>
 
 
-        <!-- ==================================
-             NOMBRE DE LA FIGURA
-             ================================== -->
+        <!-- PROGRESO -->
 
         <div
-            id="nombreFigura"
-            class="nombre-figura"
+            id="progreso"
+            class="progreso"
         >
+            Ronda 1 de 10
         </div>
 
 
-        <p class="ayuda">
-            👆 Haz clic en la figura correcta
-        </p>
-
-
-        <!-- ==================================
-             FIGURAS
-             ================================== -->
-
-        <div
-            id="figuras"
-            class="figuras"
-        >
-        </div>
-
-
-        <!-- ==================================
-             MENSAJE
-             ================================== -->
-
-        <div
-            id="mensaje"
-            class="mensaje"
-        >
-        </div>
-
-
-        <!-- ==================================
-             ESTRELLAS
-             ================================== -->
+        <!-- ESTRELLAS -->
 
         <div
             id="estrellas"
@@ -88,20 +64,62 @@
         </div>
 
 
-        <!-- ==================================
-             PROGRESO
-             ================================== -->
+        <!-- =================================
+             ZONA DEL JUEGO
+             ================================= -->
+
+        <div class="zona-juego">
+
+
+            <!-- FIGURAS -->
+
+            <div class="columna">
+
+                <h2>
+                    🔷 Figuras
+                </h2>
+
+                <div
+                    id="figuras"
+                    class="figuras"
+                >
+                </div>
+
+            </div>
+
+
+            <!-- NOMBRES -->
+
+            <div class="columna">
+
+                <h2>
+                    📝 Nombres
+                </h2>
+
+                <div
+                    id="nombres"
+                    class="nombres"
+                >
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- MENSAJE -->
 
         <div
-            id="progreso"
-            class="progreso"
+            id="mensaje"
+            class="mensaje"
         >
         </div>
 
 
-        <!-- ==================================
-             RESULTADO
-             ================================== -->
+        <!-- =================================
+             MENÚ DE RESULTADO
+             ================================= -->
 
         <div
             id="resultado"
@@ -125,7 +143,6 @@
             <button
                 id="siguiente"
                 class="boton-siguiente"
-                onclick="siguienteFigura()"
             >
                 Siguiente ➜
             </button>
@@ -133,13 +150,11 @@
         </div>
 
 
-        <!-- ==================================
-             REINICIAR
-             ================================== -->
+        <!-- REINICIAR -->
 
         <button
             id="reiniciar"
-            onclick="reiniciarJuego()"
+            class="reiniciar"
         >
             🔄 Jugar otra vez
         </button>
