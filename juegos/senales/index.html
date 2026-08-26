@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>🚦 Señales de tránsito</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+    <main class="contenedor">
+
+
+        <!-- BOTÓN VOLVER -->
+
+        <a
+            href="../../index.html"
+            class="volver"
+        >
+            🏠 Menú principal
+        </a>
+
+
+        <!-- ENCABEZADO -->
+
+        <h1>
+            🚦 ¡Señales de tránsito! 🚦
+        </h1>
+
+        <p class="instruccion">
+            Arrastra cada señal hasta su nombre.
+        </p>
+
+
+        <!-- PREGUNTA SOBRE TIPOS DE SEÑALES -->
+
+        <div class="pregunta-tipos">
+            <p class="pregunta-texto">
+                ❓ ¿Cuántos tipos de señales de tránsito existen?
+            </p>
+            <div class="opciones-tipos">
+                <button class="opcion-tipo" data-respuesta="2">
+                    🔴 2 tipos
+                </button>
+                <button class="opcion-tipo" data-respuesta="3">
+                    🟡 3 tipos
+                </button>
+                <button class="opcion-tipo" data-respuesta="4">
+                    🟢 4 tipos
+                </button>
+                <button class="opcion-tipo" data-respuesta="5">
+                    🔵 5 tipos
+                </button>
+            </div>
+            <div id="respuestaTipos" class="respuesta-tipos"></div>
+        </div>
+
+
+        <!-- PROGRESO -->
+
+        <div
+            id="progreso"
+            class="progreso"
+        >
+            Coloca las 6 señales en su nombre correcto
+        </div>
+
+
+        <!-- ESTRELLAS -->
+
+        <div
+            id="estrellas"
+            class="estrellas"
+        >
+        </div>
+
+
+        <!-- =================================
+             ZONA DEL JUEGO
+             ================================= -->
+
+        <div class="zona-juego">
+
+
+            <!-- SEÑALES -->
+
+            <div class="columna">
+
+                <h2>
+                    🚦 Señales
+                </h2>
+
+                <div
+                    id="figuras"
+                    class="figuras"
+                >
+                </div>
+
+            </div>
+
+
+            <!-- NOMBRES -->
+
+            <div class="columna">
+
+                <h2>
+                    📝 Nombres
+                </h2>
+
+                <div
+                    id="nombres"
+                    class="nombres"
+                >
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- MENSAJE -->
+
+        <div
+            id="mensaje"
+            class="mensaje"
+        >
+        </div>
+
+
+        <!-- =================================
+             MENÚ DE RESULTADO
+             ================================= -->
+
+        <div
+            id="resultado"
+            class="resultado"
+        >
+
+            <div
+                id="resultadoTitulo"
+                class="resultado-titulo"
+            >
+            </div>
+
+
+            <div
+                id="resultadoIntentos"
+                class="resultado-intentos"
+            >
+            </div>
+
+        </div>
+
+
+        <!-- REINICIAR -->
+
+        <button
+            id="reiniciar"
+            class="reiniciar"
+        >
+            🔄 Jugar otra vez
+        </button>
+
+
+    </main>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
