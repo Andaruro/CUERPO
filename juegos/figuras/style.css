@@ -259,6 +259,29 @@ h1 {
 
     height: 90px;
 
+    max-width: 90px;
+
+    max-height: 90px;
+
+    object-fit: contain;
+
+    pointer-events: none;
+
+}
+/* ==========================================
+   IMAGEN COLOCADA CORRECTAMENTE
+   ========================================== */
+
+.nombre img {
+
+    width: 70px !important;
+
+    height: 70px !important;
+
+    max-width: 70px !important;
+
+    max-height: 70px !important;
+
     object-fit: contain;
 
     pointer-events: none;
