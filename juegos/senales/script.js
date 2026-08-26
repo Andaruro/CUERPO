@@ -97,7 +97,6 @@ let bloqueado = false;
 let figuraArrastrada = null;
 let juegoTerminado = false;
 let preguntaTiposRespondida = false;
-let senalesUsadas = [];
 
 // ==========================================
 // ELEMENTOS
@@ -208,16 +207,6 @@ function mezclar(array) {
 
 
 // ==========================================
-// SELECCIONAR 6 SEÑALES ALEATORIAS
-// ==========================================
-
-function seleccionarSenales() {
-    const mezcladas = mezclar(senalesDisponibles);
-    return mezcladas.slice(0, 6);
-}
-
-
-// ==========================================
 // INICIAR JUEGO
 // ==========================================
 
@@ -230,7 +219,6 @@ function iniciarJuego() {
     figurasCorrectas = 0;
     figuraArrastrada = null;
     preguntaTiposRespondida = false;
-    senalesUsadas = seleccionarSenales();
 
     contenedorFiguras.innerHTML = "";
     contenedorNombres.innerHTML = "";
@@ -250,19 +238,19 @@ function iniciarJuego() {
 
     // Actualizar progreso
     progreso.textContent =
-        `Coloca las 6 señales en su nombre correcto`;
+        `Coloca las ${senalesDisponibles.length} señales en su nombre correcto`;
 
     // Actualizar estrellas
     estrellas.textContent =
         "⭐".repeat(figurasCorrectas);
 
     // ======================================
-    // CREAR SEÑALES (mezcladas)
+    // CREAR TODAS LAS SEÑALES (mezcladas)
     // ======================================
 
     const figurasMezcladas =
         mezclar(
-            senalesUsadas
+            senalesDisponibles
         );
 
 
@@ -276,12 +264,12 @@ function iniciarJuego() {
 
 
     // ======================================
-    // CREAR NOMBRES (mezclados)
+    // CREAR TODOS LOS NOMBRES (mezclados)
     // ======================================
 
     const nombresMezclados =
         mezclar(
-            senalesUsadas
+            senalesDisponibles
         );
 
 
@@ -644,7 +632,7 @@ function colocarCorrectamente(
 
     if (
         colocadas ===
-        senalesUsadas.length
+        senalesDisponibles.length
     ) {
 
         terminarJuego();
@@ -789,7 +777,7 @@ function terminarJuego() {
 
 
     resultadoIntentos.textContent =
-        `Completaste las 6 señales en ${intentos} intentos.`;
+        `Completaste las ${senalesDisponibles.length} señales en ${intentos} intentos.`;
 
 
     progreso.textContent =
