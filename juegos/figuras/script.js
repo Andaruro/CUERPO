@@ -47,11 +47,12 @@ const figurasDisponibles = [
 // VARIABLES
 // ==========================================
 
-let figuraActualIndex = 0; // Índice de la figura actual (0-5)
 let figurasCorrectas = 0;
 let intentos = 0;
+let colocadas = 0;
 let bloqueado = false;
 let figuraArrastrada = null;
+let juegoTerminado = false;
 
 
 // ==========================================
@@ -157,50 +158,67 @@ function mezclar(array) {
 
 
 // ==========================================
-// MOSTRAR PREGUNTA ACTUAL
+// INICIAR JUEGO
 // ==========================================
 
-function mostrarPregunta() {
+function iniciarJuego() {
 
-    // Verificar si ya completó todas
-    if (figuraActualIndex >= figurasDisponibles.length) {
-        terminarJuego();
-        return;
-    }
-
+    juegoTerminado = false;
     bloqueado = false;
+    intentos = 0;
+    colocadas = 0;
+    figurasCorrectas = 0;
     figuraArrastrada = null;
 
-    // Limpiar contenedores
     contenedorFiguras.innerHTML = "";
     contenedorNombres.innerHTML = "";
     mensaje.textContent = "";
     resultado.style.display = "none";
+    botonSiguiente.style.display = "none";
+    botonReiniciar.style.display = "none";
 
     // Actualizar progreso
     progreso.textContent =
-        `Figura ${figuraActualIndex + 1} de ${figurasDisponibles.length}`;
+        `Coloca las 6 figuras en su nombre correcto`;
 
     // Actualizar estrellas
     estrellas.textContent =
         "⭐".repeat(figurasCorrectas);
 
-    // Obtener la figura actual
-    const figuraActual = figurasDisponibles[figuraActualIndex];
+    // ======================================
+    // CREAR FIGURAS (mezcladas)
+    // ======================================
 
-    // ======================================
-    // CREAR FIGURA (solo una)
-    // ======================================
-    crearFigura(figuraActual);
+    const figurasMezcladas =
+        mezclar(
+            figurasDisponibles
+        );
+
+
+    figurasMezcladas.forEach(
+        function(figura) {
+
+            crearFigura(figura);
+
+        }
+    );
+
 
     // ======================================
     // CREAR NOMBRES (mezclados)
     // ======================================
-    const nombresMezclados = mezclar(figurasDisponibles);
-    
+
+    const nombresMezclados =
+        mezclar(
+            figurasDisponibles
+        );
+
+
     nombresMezclados.forEach(
         function(figura) {
+
             crearNombre(figura);
+
         }
     );
 
@@ -351,7 +369,7 @@ function crearNombre(figura) {
 
 function iniciarArrastre(event) {
 
-    if (bloqueado) {
+    if (bloqueado || juegoTerminado) {
         return;
     }
 
@@ -395,7 +413,8 @@ function finalizarArrastre(event) {
 
     if (
         bloqueado ||
-        !figuraArrastrada
+        !figuraArrastrada ||
+        juegoTerminado
     ) {
 
         return;
@@ -530,6 +549,7 @@ function colocarCorrectamente(
     figura.remove();
 
 
+    colocadas++;
     figurasCorrectas++;
 
 
@@ -548,19 +568,17 @@ function colocarCorrectamente(
 
 
     // ======================================
-    // PASAR A LA SIGUIENTE FIGURA
+    // VERIFICAR SI COMPLETÓ TODAS
     // ======================================
 
-    bloqueado = true;
+    if (
+        colocadas ===
+        figurasDisponibles.length
+    ) {
 
-    // Esperar un momento y pasar a la siguiente
-    setTimeout(
-        function() {
-            figuraActualIndex++;
-            mostrarPregunta();
-        },
-        800
-    );
+        terminarJuego();
+
+    }
 
 }
 
@@ -606,15 +624,16 @@ function respuestaIncorrecta(
 
 function terminarJuego() {
 
+    juegoTerminado = true;
     bloqueado = true;
 
 
-    contenedorFiguras.innerHTML =
-        "";
+    mensaje.textContent =
+        "🎉 ¡Completaste todas las figuras! 🎉";
 
 
-    contenedorNombres.innerHTML =
-        "";
+    mensaje.style.color =
+        "#4CAF50";
 
 
     resultado.style.display =
@@ -629,20 +648,8 @@ function terminarJuego() {
         `Completaste las 6 figuras en ${intentos} intentos.`;
 
 
-    mensaje.textContent =
-        "🎉 ¡Terminaste el juego! 🎉";
-
-
-    mensaje.style.color =
-        "#1565c0";
-
-
     progreso.textContent =
         "¡Juego completado!";
-
-
-    botonSiguiente.style.display =
-        "none";
 
 
     botonReiniciar.style.display =
@@ -665,31 +672,16 @@ botonReiniciar.addEventListener(
     "click",
     function() {
 
-        figuraActualIndex = 0;
-        figurasCorrectas = 0;
-        intentos = 0;
-        bloqueado = false;
-
-        botonReiniciar.style.display =
-            "none";
-
-        botonSiguiente.style.display =
-            "inline-block";
-
-        botonSiguiente.textContent =
-            "Siguiente ➜";
-
-        mostrarPregunta();
+        iniciarJuego();
 
     }
 );
 
 
 // ==========================================
-// ELIMINAR BOTÓN "SIGUIENTE"
+// OCULTAR BOTÓN "SIGUIENTE"
 // ==========================================
 
-// Ocultamos el botón siguiente porque ya no es necesario
 botonSiguiente.style.display = "none";
 
 
@@ -697,4 +689,4 @@ botonSiguiente.style.display = "none";
 // INICIAR JUEGO
 // ==========================================
 
-mostrarPregunta();
+iniciarJuego();
