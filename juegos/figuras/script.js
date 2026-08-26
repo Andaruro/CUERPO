@@ -44,50 +44,13 @@ const figurasDisponibles = [
 
 
 // ==========================================
-// CONFIGURACIÓN
-// ==========================================
-
-const TOTAL_RONDAS = 10;
-
-const FIGURAS_POR_RONDA = 5;
-
-
-// ==========================================
-// 👇 NUEVO: ORDEN FIJO DE RONDAS 👇
-// ==========================================
-
-// Definimos manualmente qué figuras aparecerán en cada ronda
-// (usamos índices de figurasDisponibles)
-const rondasPredefinidas = [
-    [0, 1, 2, 3, 4], // Ronda 1: círculo, cuadrado, triángulo, rectángulo, óvalo
-    [1, 2, 3, 4, 5], // Ronda 2: cuadrado, triángulo, rectángulo, óvalo, rombo
-    [0, 2, 3, 4, 5], // Ronda 3: círculo, triángulo, rectángulo, óvalo, rombo
-    [0, 1, 3, 4, 5], // Ronda 4: círculo, cuadrado, rectángulo, óvalo, rombo
-    [0, 1, 2, 4, 5], // Ronda 5: círculo, cuadrado, triángulo, óvalo, rombo
-    [0, 1, 2, 3, 5], // Ronda 6: círculo, cuadrado, triángulo, rectángulo, rombo
-    [0, 1, 2, 3, 4], // Ronda 7: círculo, cuadrado, triángulo, rectángulo, óvalo
-    [1, 2, 3, 4, 5], // Ronda 8: cuadrado, triángulo, rectángulo, óvalo, rombo
-    [0, 2, 3, 4, 5], // Ronda 9: círculo, triángulo, rectángulo, óvalo, rombo
-    [0, 1, 2, 4, 5], // Ronda 10: círculo, cuadrado, triángulo, óvalo, rombo
-];
-
-
-// ==========================================
 // VARIABLES
 // ==========================================
 
-let rondaActual = 1;
-
-let figurasRonda = [];
-
+let figuraActualIndex = 0; // Índice de la figura actual (0-5)
 let figurasCorrectas = 0;
-
 let intentos = 0;
-
-let colocadas = 0;
-
 let bloqueado = false;
-
 let figuraArrastrada = null;
 
 
@@ -156,7 +119,7 @@ const botonReiniciar =
 
 
 // ==========================================
-// MEZCLAR ARRAY (solo para orden de presentación)
+// MEZCLAR ARRAY
 // ==========================================
 
 function mezclar(array) {
@@ -194,101 +157,50 @@ function mezclar(array) {
 
 
 // ==========================================
-// 👇 CREAR RONDA (VERSIÓN CON ORDEN FIJO) 👇
+// MOSTRAR PREGUNTA ACTUAL
 // ==========================================
 
-function crearRonda() {
+function mostrarPregunta() {
+
+    // Verificar si ya completó todas
+    if (figuraActualIndex >= figurasDisponibles.length) {
+        terminarJuego();
+        return;
+    }
 
     bloqueado = false;
-
-    intentos = 0;
-
-    colocadas = 0;
-
     figuraArrastrada = null;
 
-
-    // ======================================
-    // 🔥 CAMBIO IMPORTANTE: Usar orden fijo
-    // ======================================
-
-    // Obtener los índices predefinidos para esta ronda
-    // (si la rondaActual es 1, usamos el índice 0 del array)
-    const indiceRonda = rondaActual - 1;
-    
-    // Si por algún motivo nos pasamos, usamos la última ronda
-    const indices = rondasPredefinidas[
-        Math.min(indiceRonda, rondasPredefinidas.length - 1)
-    ];
-    
-    // Seleccionar las figuras según los índices fijos
-    figurasRonda = indices.map(function(indice) {
-        return figurasDisponibles[indice];
-    });
-
-
-    mostrarRonda();
-
-}
-
-
-// ==========================================
-// MOSTRAR RONDA
-// ==========================================
-
-function mostrarRonda() {
-
+    // Limpiar contenedores
     contenedorFiguras.innerHTML = "";
-
     contenedorNombres.innerHTML = "";
-
     mensaje.textContent = "";
-
     resultado.style.display = "none";
 
-
+    // Actualizar progreso
     progreso.textContent =
-        `Ronda ${rondaActual} de ${TOTAL_RONDAS}`;
+        `Figura ${figuraActualIndex + 1} de ${figurasDisponibles.length}`;
 
-
+    // Actualizar estrellas
     estrellas.textContent =
         "⭐".repeat(figurasCorrectas);
 
+    // Obtener la figura actual
+    const figuraActual = figurasDisponibles[figuraActualIndex];
 
     // ======================================
-    // CREAR FIGURAS (se mezcla solo el orden)
+    // CREAR FIGURA (solo una)
     // ======================================
-
-    const figurasMezcladas =
-        mezclar(
-            figurasRonda
-        );
-
-
-    figurasMezcladas.forEach(
-        function(figura) {
-
-            crearFigura(figura);
-
-        }
-    );
-
+    crearFigura(figuraActual);
 
     // ======================================
-    // CREAR NOMBRES (se mezcla solo el orden)
+    // CREAR NOMBRES (mezclados)
     // ======================================
-
-    const nombresMezclados =
-        mezclar(
-            figurasRonda
-        );
-
-
+    const nombresMezclados = mezclar(figurasDisponibles);
+    
     nombresMezclados.forEach(
         function(figura) {
-
             crearNombre(figura);
-
         }
     );
 
@@ -566,61 +478,57 @@ function colocarCorrectamente(
     );
 
 
-    // Mover la imagen dentro
-    // del nombre
-
+    // Mover la imagen dentro del nombre
     const imagen =
         figura.querySelector(
             "img"
         );
 
 
-if (imagen) {
+    if (imagen) {
 
-    // Guardamos el nombre
-    const nombre =
-        destino.textContent;
+        // Guardamos el nombre
+        const nombre =
+            destino.textContent;
 
-    // Limpiamos el contenido
-    destino.innerHTML = "";
+        // Limpiamos el contenido
+        destino.innerHTML = "";
 
-    // Creamos un contenedor para la imagen
-    const imagenCorrecta =
-        document.createElement("img");
+        // Creamos un contenedor para la imagen
+        const imagenCorrecta =
+            document.createElement("img");
 
-    imagenCorrecta.src =
-        imagen.src;
+        imagenCorrecta.src =
+            imagen.src;
 
-    imagenCorrecta.alt =
-        imagen.alt;
+        imagenCorrecta.alt =
+            imagen.alt;
 
-    imagenCorrecta.classList.add(
-        "imagen-colocada"
-    );
+        imagenCorrecta.classList.add(
+            "imagen-colocada"
+        );
 
-    // Volvemos a mostrar el nombre
-    const texto =
-        document.createElement("span");
+        // Volvemos a mostrar el nombre
+        const texto =
+            document.createElement("span");
 
-    texto.textContent =
-        nombre;
+        texto.textContent =
+            nombre;
 
-    // Añadimos ambos elementos
-    destino.appendChild(
-        imagenCorrecta
-    );
+        // Añadimos ambos elementos
+        destino.appendChild(
+            imagenCorrecta
+        );
 
-    destino.appendChild(
-        texto
-    );
+        destino.appendChild(
+            texto
+        );
 
-}
+    }
 
 
     figura.remove();
 
-
-    colocadas++;
 
     figurasCorrectas++;
 
@@ -640,17 +548,19 @@ if (imagen) {
 
 
     // ======================================
-    // RONDA COMPLETADA
+    // PASAR A LA SIGUIENTE FIGURA
     // ======================================
 
-    if (
-        colocadas ===
-        figurasRonda.length
-    ) {
+    bloqueado = true;
 
-        finalizarRonda();
-
-    }
+    // Esperar un momento y pasar a la siguiente
+    setTimeout(
+        function() {
+            figuraActualIndex++;
+            mostrarPregunta();
+        },
+        800
+    );
 
 }
 
@@ -691,78 +601,6 @@ function respuestaIncorrecta(
 
 
 // ==========================================
-// FINALIZAR RONDA
-// ==========================================
-
-function finalizarRonda() {
-
-    bloqueado = true;
-
-
-    mensaje.textContent =
-        "🌟 ¡Completaste la ronda! 🌟";
-
-
-    mensaje.style.color =
-        "#4CAF50";
-
-
-    resultado.style.display =
-        "block";
-
-
-    resultadoTitulo.textContent =
-        "🎉 ¡Muy bien!";
-
-
-    resultadoIntentos.textContent =
-        `Intentos: ${intentos}`;
-
-
-    // Última ronda
-
-    if (
-        rondaActual ===
-        TOTAL_RONDAS
-    ) {
-
-        botonSiguiente.textContent =
-            "🏆 Terminar";
-
-    }
-
-}
-
-
-// ==========================================
-// SIGUIENTE RONDA
-// ==========================================
-
-botonSiguiente.addEventListener(
-    "click",
-    function() {
-
-        if (
-            rondaActual >=
-            TOTAL_RONDAS
-        ) {
-
-            terminarJuego();
-
-            return;
-
-        }
-
-
-        rondaActual++;
-
-        crearRonda();
-
-    }
-);
-
-
-// ==========================================
 // TERMINAR JUEGO
 // ==========================================
 
@@ -788,7 +626,7 @@ function terminarJuego() {
 
 
     resultadoIntentos.textContent =
-        `Completaste ${TOTAL_RONDAS} rondas.`;
+        `Completaste las 6 figuras en ${intentos} intentos.`;
 
 
     mensaje.textContent =
@@ -827,34 +665,36 @@ botonReiniciar.addEventListener(
     "click",
     function() {
 
-        rondaActual = 1;
-
+        figuraActualIndex = 0;
         figurasCorrectas = 0;
-
         intentos = 0;
-
-        colocadas = 0;
+        bloqueado = false;
 
         botonReiniciar.style.display =
             "none";
 
-
         botonSiguiente.style.display =
             "inline-block";
-
 
         botonSiguiente.textContent =
             "Siguiente ➜";
 
-
-        crearRonda();
+        mostrarPregunta();
 
     }
 );
 
 
 // ==========================================
+// ELIMINAR BOTÓN "SIGUIENTE"
+// ==========================================
+
+// Ocultamos el botón siguiente porque ya no es necesario
+botonSiguiente.style.display = "none";
+
+
+// ==========================================
 // INICIAR JUEGO
 // ==========================================
 
-crearRonda();
+mostrarPregunta();
