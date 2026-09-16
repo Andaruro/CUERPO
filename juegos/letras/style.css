@@ -1,1 +1,279 @@
 
+/* ==========================================
+   GENERAL
+   ========================================== */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Comic Sans MS", "Arial", sans-serif;
+    background: linear-gradient(135deg, #e0f7fa, #fff9c4);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+}
+
+.contenedor {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 25px;
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+
+/* ==========================================
+   VOLVER
+   ========================================== */
+
+.volver {
+    display: inline-block;
+    text-decoration: none;
+    color: #1565c0;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.volver:hover {
+    text-decoration: underline;
+}
+
+
+/* ==========================================
+   TÍTULO
+   ========================================== */
+
+h1 {
+    font-size: 24px;
+    color: #2e7d32;
+    margin: 10px 0;
+}
+
+.instruccion {
+    font-size: 15px;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+
+/* ==========================================
+   PROGRESO
+   ========================================== */
+
+.progreso {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 5px;
+}
+
+
+/* ==========================================
+   ESTRELLAS
+   ========================================== */
+
+.estrellas {
+    font-size: 22px;
+    color: #ffc107;
+    letter-spacing: 4px;
+    min-height: 26px;
+    margin-bottom: 10px;
+}
+
+
+/* ==========================================
+   IMAGEN
+   ========================================== */
+
+.imagen-palabra {
+    display: block;
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+    margin: 10px auto;
+}
+
+
+/* ==========================================
+   PISTA
+   ========================================== */
+
+.pista {
+    font-size: 15px;
+    color: #333;
+    margin: 12px 0;
+}
+
+.pista strong {
+    color: #c2185b;
+    letter-spacing: 2px;
+}
+
+
+/* ==========================================
+   PALABRA CON HUECO
+   ========================================== */
+
+.palabra-hueco {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin: 20px 0;
+}
+
+.palabra-hueco .letra {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 60px;
+    font-size: 30px;
+    font-weight: bold;
+    color: #333;
+    background: #f1f1f1;
+    border-bottom: 4px solid #999;
+    border-radius: 8px;
+}
+
+.palabra-hueco .letra.hueco {
+    color: #c2185b;
+    background: #fff3e0;
+    border-bottom: 4px dashed #c2185b;
+}
+
+
+/* ==========================================
+   RESPUESTA
+   ========================================== */
+
+.respuesta {
+    margin: 15px 0;
+}
+
+#respuestaInput {
+    width: 70px;
+    height: 70px;
+    font-size: 36px;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+    border: 3px solid #4caf50;
+    border-radius: 12px;
+    outline: none;
+    background: #f9fff9;
+    color: #2e7d32;
+}
+
+#respuestaInput:focus {
+    border-color: #ff9800;
+    box-shadow: 0 0 8px rgba(255, 152, 0, 0.5);
+}
+
+#respuestaInput.correcta {
+    border-color: #4caf50;
+    background: #e8f5e9;
+    color: #2e7d32;
+}
+
+#respuestaInput.incorrecta {
+    border-color: #f44336;
+    background: #ffebee;
+    animation: temblor 0.4s;
+}
+
+@keyframes temblor {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-6px); }
+    75% { transform: translateX(6px); }
+}
+
+
+/* ==========================================
+   MENSAJE
+   ========================================== */
+
+.mensaje {
+    font-size: 18px;
+    font-weight: bold;
+    min-height: 26px;
+    margin: 10px 0;
+}
+
+
+/* ==========================================
+   INTENTOS
+   ========================================== */
+
+.contador-intentos {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 10px;
+}
+
+
+/* ==========================================
+   RESULTADO
+   ========================================== */
+
+.resultado {
+    display: none;
+    background: #e8f5e9;
+    border-radius: 15px;
+    padding: 18px;
+    margin: 15px 0;
+}
+
+.resultado-titulo {
+    font-size: 20px;
+    font-weight: bold;
+    color: #2e7d32;
+    margin-bottom: 8px;
+}
+
+.resultado-intentos {
+    font-size: 15px;
+    color: #555;
+    margin-bottom: 12px;
+}
+
+
+/* ==========================================
+   BOTONES
+   ========================================== */
+
+.boton-siguiente,
+.reiniciar {
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 22px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    color: #ffffff;
+    background: #4caf50;
+    transition: transform 0.15s, background 0.2s;
+}
+
+.boton-siguiente:hover,
+.reiniciar:hover {
+    background: #388e3c;
+    transform: scale(1.05);
+}
+
+.reiniciar {
+    display: none;
+    background: #1565c0;
+    margin-top: 10px;
+}
+
+.reiniciar:hover {
+    background: #0d47a1;
+}
