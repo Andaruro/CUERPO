@@ -3,6 +3,10 @@
 }
 
 
+/* ==========================================
+   CUERPO
+   ========================================== */
+
 body {
 
     margin: 0;
@@ -27,6 +31,8 @@ body {
 
     align-items: center;
 
+    padding: 25px;
+
 }
 
 
@@ -36,9 +42,9 @@ body {
 
 .menu {
 
-    width: 90%;
+    width: 100%;
 
-    max-width: 1100px;
+    max-width: 1250px;
 
     text-align: center;
 
@@ -100,31 +106,30 @@ body {
 
 
 /* ==========================================
-   JUEGOS
+   CONTENEDOR DE JUEGOS
    ========================================== */
 
 .juegos {
 
-    display: flex;
+    display: grid;
 
-    justify-content: center;
+    grid-template-columns:
+        repeat(3, 1fr);
 
-    align-items: stretch;
+    gap: 30px;
 
-    gap: 40px;
-
-    flex-wrap: wrap;
+    width: 100%;
 
 }
 
 
 /* ==========================================
-   TARJETA
+   TARJETAS
    ========================================== */
 
 .juego {
 
-    width: 400px;
+    width: 100%;
 
     min-height: 430px;
 
@@ -180,20 +185,22 @@ body {
 
 .juego-icono {
 
-    font-size: 120px;
+    font-size: 110px;
 
     margin-bottom: 15px;
+
+    line-height: 1;
 
 }
 
 
 /* ==========================================
-   TITULO
+   TÍTULO
    ========================================== */
 
 .juego h2 {
 
-    font-size: 36px;
+    font-size: 34px;
 
     margin: 10px 0;
 
@@ -206,13 +213,15 @@ body {
 
 .juego p {
 
-    font-size: 21px;
+    font-size: 20px;
 
     line-height: 1.5;
 
     color: #666;
 
-    max-width: 330px;
+    max-width: 320px;
+
+    margin: 10px 0;
 
 }
 
@@ -226,13 +235,13 @@ body {
     margin-top: 20px;
 
     padding:
-        15px 35px;
+        14px 32px;
 
     border-radius: 18px;
 
     color: white;
 
-    font-size: 25px;
+    font-size: 24px;
 
     font-weight: bold;
 
@@ -324,6 +333,46 @@ body {
 }
 
 
+/* ------------------------------------------
+   SEÑALES
+   ------------------------------------------ */
+
+.juego-senales {
+
+    border-top:
+        10px solid #ef5350;
+
+}
+
+
+.juego-senales .boton {
+
+    background:
+        #ef5350;
+
+}
+
+
+/* ------------------------------------------
+   SÍLABAS
+   ------------------------------------------ */
+
+.juego-silabas {
+
+    border-top:
+        10px solid #26a69a;
+
+}
+
+
+.juego-silabas .boton {
+
+    background:
+        #26a69a;
+
+}
+
+
 /* ==========================================
    FOOTER
    ========================================== */
@@ -340,35 +389,24 @@ footer {
 
 
 /* ==========================================
-   TABLET / CELULAR
+   TABLET
    ========================================== */
 
-@media (max-width: 700px) {
+@media (max-width: 1000px) {
 
     .menu {
 
-        width: 94%;
+        max-width: 850px;
 
-        padding: 25px 0;
-
-    }
-
-
-    .encabezado h1 {
-
-        font-size: 40px;
-
-    }
-
-
-    .encabezado p {
-
-        font-size: 22px;
+        padding: 30px 0;
 
     }
 
 
     .juegos {
+
+        grid-template-columns:
+            repeat(2, 1fr);
 
         gap: 25px;
 
@@ -377,23 +415,37 @@ footer {
 
     .juego {
 
-        width: 95%;
+        min-height: 400px;
 
-        min-height: 360px;
+        padding: 30px;
+
+    }
+
+
+    .encabezado h1 {
+
+        font-size: 48px;
+
+    }
+
+
+    .encabezado p {
+
+        font-size: 24px;
 
     }
 
 
     .juego-icono {
 
-        font-size: 90px;
+        font-size: 100px;
 
     }
 
 
     .juego h2 {
 
-        font-size: 30px;
+        font-size: 32px;
 
     }
 
@@ -401,6 +453,192 @@ footer {
     .juego p {
 
         font-size: 19px;
+
+    }
+
+}
+
+
+/* ==========================================
+   CELULAR
+   ========================================== */
+
+@media (max-width: 650px) {
+
+    body {
+
+        padding: 12px;
+
+        align-items: flex-start;
+
+    }
+
+
+    .menu {
+
+        width: 100%;
+
+        padding: 20px 0;
+
+    }
+
+
+    .encabezado {
+
+        gap: 10px;
+
+    }
+
+
+    .encabezado h1 {
+
+        font-size: 38px;
+
+    }
+
+
+    .encabezado p {
+
+        font-size: 21px;
+
+        margin-bottom: 25px;
+
+    }
+
+
+    .decoracion {
+
+        font-size: 38px;
+
+    }
+
+
+    .juegos {
+
+        grid-template-columns:
+            1fr;
+
+        gap: 20px;
+
+    }
+
+
+    .juego {
+
+        min-height: 350px;
+
+        padding: 25px;
+
+    }
+
+
+    .juego-icono {
+
+        font-size: 85px;
+
+    }
+
+
+    .juego h2 {
+
+        font-size: 29px;
+
+    }
+
+
+    .juego p {
+
+        font-size: 18px;
+
+        max-width: 280px;
+
+    }
+
+
+    .boton {
+
+        font-size: 21px;
+
+        padding:
+            12px 28px;
+
+    }
+
+
+    footer {
+
+        margin-top: 30px;
+
+        font-size: 19px;
+
+    }
+
+}
+
+
+/* ==========================================
+   CELULARES MUY PEQUEÑOS
+   ========================================== */
+
+@media (max-width: 400px) {
+
+    .encabezado h1 {
+
+        font-size: 32px;
+
+    }
+
+
+    .encabezado p {
+
+        font-size: 19px;
+
+    }
+
+
+    .decoracion {
+
+        font-size: 32px;
+
+    }
+
+
+    .juego {
+
+        min-height: 330px;
+
+        padding: 22px;
+
+    }
+
+
+    .juego-icono {
+
+        font-size: 75px;
+
+    }
+
+
+    .juego h2 {
+
+        font-size: 26px;
+
+    }
+
+
+    .juego p {
+
+        font-size: 17px;
+
+    }
+
+
+    .boton {
+
+        font-size: 19px;
+
+        padding:
+            11px 24px;
 
     }
 
