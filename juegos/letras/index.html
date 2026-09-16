@@ -1,1 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
 
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Completa la palabra</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <main class="contenedor">
+
+
+        <!-- VOLVER AL MENÚ -->
+
+        <a
+            href="../../index.html"
+            class="volver"
+        >
+            🏠 Menú principal
+        </a>
+
+
+        <!-- ENCABEZADO -->
+
+        <h1>
+            ✏️ ¡Completa la palabra! ✏️
+        </h1>
+
+
+        <p class="instruccion">
+            Escribe la letra que falta.
+        </p>
+
+
+        <!-- PROGRESO -->
+
+        <div
+            id="progreso"
+            class="progreso"
+        >
+            Palabra 1 de 5
+        </div>
+
+
+        <!-- ESTRELLAS -->
+
+        <div
+            id="estrellas"
+            class="estrellas"
+        >
+        </div>
+
+
+        <!-- IMAGEN -->
+
+        <img
+            id="imagenPalabra"
+            class="imagen-palabra"
+            alt=""
+        >
+
+
+        <!-- LETRAS DISPONIBLES -->
+
+        <div class="pista">
+
+            Letras disponibles:
+            <strong>P · A · D · M · N</strong>
+
+        </div>
+
+
+        <!-- PALABRA CON HUECO -->
+
+        <div
+            id="palabraHueco"
+            class="palabra-hueco"
+        >
+        </div>
+
+
+        <!-- RESPUESTA -->
+
+        <div class="respuesta">
+
+            <input
+                id="respuestaInput"
+                type="text"
+                maxlength="1"
+                autocomplete="off"
+                spellcheck="false"
+                placeholder="?"
+            >
+
+        </div>
+
+
+        <!-- MENSAJE -->
+
+        <div
+            id="mensaje"
+            class="mensaje"
+        >
+        </div>
+
+
+        <!-- INTENTOS -->
+
+        <div
+            id="contadorIntentos"
+            class="contador-intentos"
+        >
+            Intentos: 0
+        </div>
+
+
+        <!-- RESULTADO -->
+
+        <div
+            id="resultado"
+            class="resultado"
+        >
+
+            <div
+                id="resultadoTitulo"
+                class="resultado-titulo"
+            >
+            </div>
+
+
+            <div
+                id="resultadoIntentos"
+                class="resultado-intentos"
+            >
+            </div>
+
+
+            <button
+                id="siguiente"
+                class="boton-siguiente"
+            >
+                Siguiente ➜
+            </button>
+
+        </div>
+
+
+        <!-- REINICIAR -->
+
+        <button
+            id="reiniciar"
+            class="reiniciar"
+        >
+            🔄 Jugar otra vez
+        </button>
+
+
+    </main>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
