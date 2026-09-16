@@ -1,0 +1,700 @@
+* {
+    box-sizing: border-box;
+}
+
+
+body {
+
+    margin: 0;
+
+    min-height: 100vh;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background:
+        linear-gradient(
+            135deg,
+            #8ed8ff,
+            #fff3b0
+        );
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 25px;
+
+}
+
+
+/* ==========================================
+   CONTENEDOR
+   ========================================== */
+
+.contenedor {
+
+    width: 100%;
+
+    max-width: 1000px;
+
+    background: white;
+
+    border-radius: 35px;
+
+    padding: 35px;
+
+    text-align: center;
+
+    box-shadow:
+        0 10px 30px
+        rgba(0, 0, 0, 0.15);
+
+    position: relative;
+
+}
+
+
+/* ==========================================
+   VOLVER
+   ========================================== */
+
+.volver {
+
+    position: absolute;
+
+    top: 20px;
+
+    left: 20px;
+
+    text-decoration: none;
+
+    background: #eeeeee;
+
+    color: #333;
+
+    padding: 10px 18px;
+
+    border-radius: 12px;
+
+    font-size: 17px;
+
+    font-weight: bold;
+
+}
+
+
+.volver:hover {
+
+    background: #dddddd;
+
+}
+
+
+/* ==========================================
+   TÍTULO
+   ========================================== */
+
+h1 {
+
+    margin-top: 45px;
+
+    margin-bottom: 10px;
+
+    color: #7b1fa2;
+
+    font-size: 48px;
+
+}
+
+
+.instruccion {
+
+    font-size: 25px;
+
+    color: #555;
+
+    margin: 10px 0;
+
+}
+
+
+/* ==========================================
+   PROGRESO
+   ========================================== */
+
+.progreso {
+
+    font-size: 22px;
+
+    color: #666;
+
+    margin-top: 20px;
+
+}
+
+
+/* ==========================================
+   ESTRELLAS
+   ========================================== */
+
+.estrellas {
+
+    min-height: 45px;
+
+    margin: 10px;
+
+    font-size: 38px;
+
+}
+
+
+/* ==========================================
+   IMAGEN / EMOJI
+   ========================================== */
+
+.imagen-palabra {
+
+    width: 180px;
+
+    height: 180px;
+
+    margin: 10px auto 15px;
+
+    border-radius: 30px;
+
+    background: #f5f5f5;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    font-size: 110px;
+
+    box-shadow:
+        0 5px 15px
+        rgba(0, 0, 0, 0.10);
+
+}
+
+
+/* ==========================================
+   PISTA
+   ========================================== */
+
+.pista {
+
+    font-size: 24px;
+
+    font-weight: bold;
+
+    color: #555;
+
+    margin-top: 15px;
+
+}
+
+
+/* ==========================================
+   SÍLABAS DESORDENADAS
+   ========================================== */
+
+.silabas-desordenadas {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 18px;
+
+    flex-wrap: wrap;
+
+    margin: 20px auto;
+
+}
+
+
+/* ==========================================
+   SÍLABA
+   ========================================== */
+
+.silaba {
+
+    background: #ede7f6;
+
+    border: 4px solid #ab47bc;
+
+    border-radius: 18px;
+
+    padding: 12px 25px;
+
+    font-size: 30px;
+
+    font-weight: bold;
+
+    color: #6a1b9a;
+
+}
+
+
+/*
+   IMPORTANTE:
+
+   Estas tarjetas son solamente
+   una pista visual.
+
+   NO son botones.
+*/
+
+
+/* ==========================================
+   RESPUESTA
+   ========================================== */
+
+.respuesta {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 15px;
+
+    flex-wrap: wrap;
+
+    margin: 25px auto;
+
+}
+
+
+/* ==========================================
+   CAJAS DE SÍLABAS
+   ========================================== */
+
+.caja-silaba {
+
+    width: 125px;
+
+    height: 70px;
+
+    border:
+
+        4px dashed
+        #90caf9;
+
+    border-radius: 18px;
+
+    background: #f8fbff;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+}
+
+
+.caja-silaba input {
+
+    width: 100%;
+
+    height: 100%;
+
+    border: none;
+
+    outline: none;
+
+    background: transparent;
+
+    text-align: center;
+
+    font-size: 30px;
+
+    font-weight: bold;
+
+    color: #1565c0;
+
+    text-transform: uppercase;
+
+}
+
+
+/* ==========================================
+   CAJA ACTIVA
+   ========================================== */
+
+.caja-silaba.activa {
+
+    border:
+
+        4px solid
+        #42a5f5;
+
+    background: #e3f2fd;
+
+    transform: scale(1.05);
+
+}
+
+
+/* ==========================================
+   CAJA CORRECTA
+   ========================================== */
+
+.caja-silaba.correcta {
+
+    border:
+
+        4px solid
+        #4caf50;
+
+    background: #e8f5e9;
+
+}
+
+
+/* ==========================================
+   CAJA INCORRECTA
+   ========================================== */
+
+.caja-silaba.incorrecta {
+
+    border:
+
+        4px solid
+        #f44336;
+
+    background: #ffebee;
+
+    animation:
+        error 0.35s ease;
+
+}
+
+
+/* ==========================================
+   MENSAJE
+   ========================================== */
+
+.mensaje {
+
+    min-height: 50px;
+
+    margin-top: 10px;
+
+    font-size: 30px;
+
+    font-weight: bold;
+
+}
+
+
+/* ==========================================
+   CONTADOR
+   ========================================== */
+
+.contador-intentos {
+
+    font-size: 20px;
+
+    color: #777;
+
+    margin-top: 5px;
+
+}
+
+
+/* ==========================================
+   RESULTADO
+   ========================================== */
+
+.resultado {
+
+    display: none;
+
+    margin: 25px auto 0;
+
+    max-width: 500px;
+
+    padding: 25px;
+
+    background: #f5faff;
+
+    border:
+
+        3px solid
+        #90caf9;
+
+    border-radius: 25px;
+
+}
+
+
+.resultado-titulo {
+
+    font-size: 35px;
+
+    font-weight: bold;
+
+    color: #1565c0;
+
+    margin-bottom: 15px;
+
+}
+
+
+.resultado-intentos {
+
+    font-size: 24px;
+
+    color: #555;
+
+    margin-bottom: 20px;
+
+}
+
+
+/* ==========================================
+   BOTÓN SIGUIENTE
+   ========================================== */
+
+.boton-siguiente {
+
+    border: none;
+
+    background: #4caf50;
+
+    color: white;
+
+    padding: 15px 40px;
+
+    border-radius: 15px;
+
+    font-size: 25px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+}
+
+
+.boton-siguiente:hover {
+
+    background: #43a047;
+
+    transform: scale(1.05);
+
+}
+
+
+/* ==========================================
+   REINICIAR
+   ========================================== */
+
+.reiniciar {
+
+    display: none;
+
+    margin-top: 25px;
+
+    padding: 16px 35px;
+
+    border: none;
+
+    background: #4caf50;
+
+    color: white;
+
+    border-radius: 18px;
+
+    font-size: 25px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+}
+
+
+.reiniciar:hover {
+
+    background: #43a047;
+
+}
+
+
+/* ==========================================
+   ANIMACIÓN ERROR
+   ========================================== */
+
+@keyframes error {
+
+    0% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-10px);
+    }
+
+    50% {
+        transform: translateX(10px);
+    }
+
+    75% {
+        transform: translateX(-10px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+
+}
+
+
+/* ==========================================
+   TABLET
+   ========================================== */
+
+@media (max-width: 700px) {
+
+    .contenedor {
+
+        padding: 25px;
+
+    }
+
+
+    h1 {
+
+        font-size: 38px;
+
+    }
+
+
+    .instruccion {
+
+        font-size: 21px;
+
+    }
+
+
+    .imagen-palabra {
+
+        width: 150px;
+
+        height: 150px;
+
+        font-size: 90px;
+
+    }
+
+
+    .caja-silaba {
+
+        width: 110px;
+
+    }
+
+}
+
+
+/* ==========================================
+   CELULAR
+   ========================================== */
+
+@media (max-width: 500px) {
+
+    body {
+
+        padding: 10px;
+
+    }
+
+
+    .contenedor {
+
+        padding: 20px;
+
+        border-radius: 25px;
+
+    }
+
+
+    h1 {
+
+        font-size: 30px;
+
+        margin-top: 50px;
+
+    }
+
+
+    .instruccion {
+
+        font-size: 19px;
+
+    }
+
+
+    .imagen-palabra {
+
+        width: 130px;
+
+        height: 130px;
+
+        font-size: 75px;
+
+    }
+
+
+    .silaba {
+
+        font-size: 24px;
+
+        padding: 10px 18px;
+
+    }
+
+
+    .respuesta {
+
+        gap: 8px;
+
+    }
+
+
+    .caja-silaba {
+
+        width: 90px;
+
+        height: 60px;
+
+    }
+
+
+    .caja-silaba input {
+
+        font-size: 24px;
+
+    }
+
+
+    .mensaje {
+
+        font-size: 25px;
+
+    }
+
+}
